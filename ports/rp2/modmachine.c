@@ -88,19 +88,7 @@ STATIC mp_obj_t machine_bootloader(void) {
 MP_DEFINE_CONST_FUN_OBJ_0(machine_bootloader_obj, machine_bootloader);
 
 STATIC mp_obj_t machine_freq(size_t n_args, const mp_obj_t *args) {
-    if (n_args == 0) {
-        return MP_OBJ_NEW_SMALL_INT(mp_hal_get_cpu_freq());
-    } else {
-        mp_int_t freq = mp_obj_get_int(args[0]);
-        if (!set_sys_clock_khz(freq / 1000, false)) {
-            mp_raise_ValueError(MP_ERROR_TEXT("cannot change frequency"));
-        }
-        #if MICROPY_HW_ENABLE_UART_REPL
-        setup_default_uart();
-        mp_uart_init();
-        #endif
-        return mp_const_none;
-    }
+    return mp_const_none;
 }
 STATIC MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(machine_freq_obj, 0, 1, machine_freq);
 
