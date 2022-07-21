@@ -17,6 +17,11 @@ void __noinline brightness_breakpoint(uint32_t r0) {
 }
 
 
+void __noinline update_breakpoint() {
+    asm("bkpt 31");
+}
+
+
 STATIC mp_obj_t emulator_screen_breakpoint(mp_obj_t buffer_addr16_obj) {
     screen_breakpoint(mp_obj_get_int(buffer_addr16_obj));
     return 0;
@@ -38,6 +43,13 @@ STATIC mp_obj_t emulator_brightness_breakpoint(mp_obj_t brightness8_obj) {
 STATIC MP_DEFINE_CONST_FUN_OBJ_1(emulator_brightness_breakpoint_obj, emulator_brightness_breakpoint);
 
 
+STATIC mp_obj_t emulator_update_breakpoint() {
+    update_breakpoint();
+    return 0;
+}
+STATIC MP_DEFINE_CONST_FUN_OBJ_0(emulator_update_breakpoint_obj, emulator_update_breakpoint);
+
+
 // Define all properties of the module.
 // Table entries are key/value pairs of the attribute name (a string)
 // and the MicroPython object reference.
@@ -48,6 +60,7 @@ STATIC const mp_rom_map_elem_t emulator_module_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR_screen_breakpoint), MP_ROM_PTR(&emulator_screen_breakpoint_obj) },
     { MP_ROM_QSTR(MP_QSTR_audio_breakpoint), MP_ROM_PTR(&emulator_audio_breakpoint_obj) },
     { MP_ROM_QSTR(MP_QSTR_brightness_breakpoint), MP_ROM_PTR(&emulator_brightness_breakpoint_obj) },
+    { MP_ROM_QSTR(MP_QSTR_update_breakpoint), MP_ROM_PTR(&emulator_update_breakpoint_obj) },
 };
 STATIC MP_DEFINE_CONST_DICT(emulator_module_globals, emulator_module_globals_table);
 
