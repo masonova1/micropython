@@ -36,7 +36,7 @@ endif()
 set(MICROPY_USER_FROZEN_MANIFEST ${MICROPY_FROZEN_MANIFEST})
 
 # Include board config, it may override MICROPY_FROZEN_MANIFEST
-include(${MICROPY_BOARD_DIR}/mpconfigboard.cmake) 
+include(${MICROPY_BOARD_DIR}/mpconfigboard.cmake)
 
 # Set the PICO_BOARD if it's not already set (allow a board to override it).
 if(NOT PICO_BOARD)
@@ -107,6 +107,7 @@ set(MICROPY_SOURCE_PORT
     modmachine.c
     modrp2.c
     modutime.c
+    moduhello.c
     mphalport.c
     mpnetworkport.c
     mpthreadport.c
@@ -135,6 +136,7 @@ set(MICROPY_SOURCE_QSTR
     ${PROJECT_SOURCE_DIR}/modrp2.c
     ${PROJECT_SOURCE_DIR}/moduos.c
     ${PROJECT_SOURCE_DIR}/modutime.c
+    ${PROJECT_SOURCE_DIR}/moduhello.c
     ${PROJECT_SOURCE_DIR}/rp2_flash.c
     ${PROJECT_SOURCE_DIR}/rp2_pio.c
 )
@@ -158,6 +160,7 @@ set(PICO_SDK_COMPONENTS
     hardware_timer
     hardware_uart
     hardware_watchdog
+    hardware_interp
     pico_base_headers
     pico_binary_info
     pico_bootrom
@@ -321,7 +324,7 @@ target_include_directories(${MICROPY_TARGET} PRIVATE
 
 target_compile_options(${MICROPY_TARGET} PRIVATE
     -Wall
-    -Werror
+    -Ofast
 )
 
 set_source_files_properties(
