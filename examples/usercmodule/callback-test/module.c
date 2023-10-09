@@ -1,2 +1,0 @@
-// module.c: registers and exposes module functions, classes/structs, constants, and attributes to Python
-// see main.h and main.c for the actual logic, this is mostly just MicroPython boilerplate code

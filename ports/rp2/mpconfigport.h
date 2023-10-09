@@ -63,6 +63,7 @@
 #define MICROPY_TRACKED_ALLOC                   (MICROPY_SSL_MBEDTLS)
 #define MICROPY_READER_VFS                      (1)
 #define MICROPY_ENABLE_GC                       (1)
+#define MICROPY_ENABLE_FINALISER                (1) // Added https://forum.micropython.org/viewtopic.php?t=4897
 #define MICROPY_ENABLE_EMERGENCY_EXCEPTION_BUF  (1)
 #define MICROPY_LONGINT_IMPL                    (MICROPY_LONGINT_IMPL_MPZ)
 #define MICROPY_FLOAT_IMPL                      (MICROPY_FLOAT_IMPL_FLOAT)

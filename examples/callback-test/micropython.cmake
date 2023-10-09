@@ -5,9 +5,10 @@ add_library(usermod_callback-test INTERFACE)
 target_sources(usermod_callback-test INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/engine.cpp
     ${CMAKE_CURRENT_LIST_DIR}/engine_module.c
-    ${CMAKE_CURRENT_LIST_DIR}/node_2d_physics.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/node_2d_bitmap_sprite.cpp
     ${CMAKE_CURRENT_LIST_DIR}/node.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/node_module.c
+
+    ${CMAKE_CURRENT_LIST_DIR}/node_2d_physics.cpp
 )
 
 # Add the current directory as an include directory.
