@@ -3,5 +3,6 @@
         "vector": "cpp",
         "xlocale": "c",
         "mpprint.h": "c"
-    }
+    },
+    "dotnet.defaultSolution": "disable"
 }
