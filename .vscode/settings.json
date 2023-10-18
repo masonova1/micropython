@@ -4,7 +4,8 @@
         "xlocale": "c",
         "mpprint.h": "c",
         "xtree": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "base_node.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }

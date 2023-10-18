@@ -3,6 +3,6 @@
 # Paths are absolute, and ${CMAKE_CURRENT_LIST_DIR} can be
 # used to prefix subdirectories.
 
-include(${CMAKE_CURRENT_LIST_DIR}/callback-test/micropython.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/engine/micropython.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/cppexample/micropython.cmake)
 
