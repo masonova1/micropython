@@ -2,7 +2,9 @@
     "files.associations": {
         "vector": "cpp",
         "xlocale": "c",
-        "mpprint.h": "c"
+        "mpprint.h": "c",
+        "xtree": "cpp",
+        "xutility": "cpp"
     },
     "dotnet.defaultSolution": "disable"
 }
