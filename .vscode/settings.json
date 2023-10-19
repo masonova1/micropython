@@ -5,7 +5,9 @@
         "mpprint.h": "c",
         "xtree": "cpp",
         "xutility": "cpp",
-        "base_node.h": "c"
+        "base_node.h": "c",
+        "debug_print.h": "c",
+        "engine_display.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
