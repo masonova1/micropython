@@ -13,7 +13,8 @@
         "node_types.h": "c",
         "empty_node.h": "c",
         "iterator": "c",
-        "memory": "c"
+        "memory": "c",
+        "engine_display_sdl.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
