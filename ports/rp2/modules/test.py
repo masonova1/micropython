@@ -1,7 +1,3 @@
-print("HI")
-
-
-
 import engine
 from engine import EmptyNode, CameraNode, Vector3
 import gc
@@ -77,36 +73,3 @@ print(cam.position, end='')
 gc.collect()
 
 engine.start()
-
-
-
-
-
-
-# print("# List of importable modules:")
-# exec("help('modules')")
-# print("")
-
-# import simpleclass
-
-# a = simpleclass.myclass(2, 3)
-# print(a)
-# print(a.mysum())
-
-# b = simpleclass.myclass(3, 3)
-# print(b)
-# print(b.mysum())
-
-# print(dir(simpleclass))
-# print(b)
-
-
-
-# print(a.set_callback)
-
-# def test2():
-#     print("hi 1")
-
-# a.test = a.set_callback(test2)
-# a.test()
-# # a.test2()
