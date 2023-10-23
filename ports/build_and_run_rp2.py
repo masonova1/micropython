@@ -23,7 +23,7 @@ def execute(cmd):
 
 
 print("##### Building rp2 port #####")
-execute(['wsl', '-e', 'make', '-C', 'rp2', '-j8', 'USER_C_MODULES=../../examples/usercmodule/engine/micropython.cmake', 'FROZEN_MANIFEST=../examples/usercmodule/engine/test.py'])
+execute(['wsl', '-e', 'make', '-C', 'rp2', '-j8', 'USER_C_MODULES=../../examples/usercmodule/engine/micropython.cmake'])
 
 
 # https://stackoverflow.com/questions/827371/is-there-a-way-to-list-all-the-available-windows-drives
