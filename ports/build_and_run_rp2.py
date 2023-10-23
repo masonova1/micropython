@@ -9,6 +9,8 @@ import string
 from subprocess import Popen, PIPE, CalledProcessError
 from ctypes import windll
 
+import shutil
+
 
 
 def execute(cmd):
@@ -62,7 +64,7 @@ for port, desc, hwid in sorted(ports):
                 print("Found drive letter! " + drive_letter)
 
                 print("Copying firmware to device...")
-                os.system("cp rp2/build-PICO/firmware.uf2 " + drive_letter + ":\\firmware.uf2")
+                shutil.copyfile("rp2/build-PICO/firmware.uf2 ", drive_letter + ":\\firmware.uf2")
 
 
                 print("Waiting on port to run test manifest file...")
