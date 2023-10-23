@@ -77,7 +77,7 @@
 
 // Ports/boards should set this, but default to level=core.
 #ifndef MICROPY_CONFIG_ROM_LEVEL
-#define MICROPY_CONFIG_ROM_LEVEL (MICROPY_CONFIG_ROM_LEVEL_EXTRA_FEATURES)
+#define MICROPY_CONFIG_ROM_LEVEL (MICROPY_CONFIG_ROM_LEVEL_CORE_FEATURES)
 #endif
 
 // Helper macros for "have at least this level".
