@@ -67,6 +67,10 @@ print(v, end='')
 
 
 cam = MyNodeCam()
+print(dir(cam))
+print(dir(cam.position))
+print(dir(cam.viewport))
+print(cam.viewport, end='')
 print(cam.position, end='')
 cam.position.x = 1
 cam.position.y = 1
@@ -76,4 +80,4 @@ print(cam.position, end='')
 
 gc.collect()
 
-engine.start()
+# engine.start()
