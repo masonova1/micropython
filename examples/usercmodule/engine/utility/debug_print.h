@@ -45,8 +45,8 @@ extern uint8_t ENGINE_DEBUG_PRINT_LEVEL;
         mp_printf(&mp_sys_stdout_print, "\x1b[0m\n");               \
     }
 
-// DO NOT USE: only for special cases. For example, when the debug level 
-// is changed it will always print a message (changing debug level shouldn't 
+// DO NOT USE: only for special cases. For example, when the debug level
+// is changed it will always print a message (changing debug level shouldn't
 // be done in games anyway, ugly)
 #define ENGINE_FORCE_PRINTF(fmt, ...)                       \
     mp_printf(&mp_sys_stdout_print, "\x1b[35mDEBUG: ");     \
