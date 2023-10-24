@@ -13,7 +13,23 @@
         "node_types.h": "c",
         "empty_node.h": "c",
         "iterator": "c",
-        "memory": "c"
+        "memory": "c",
+        "engine_display_sdl.h": "c",
+        "complex": "c",
+        "exception": "c",
+        "fstream": "c",
+        "ios": "c",
+        "limits": "c",
+        "sstream": "c",
+        "stdexcept": "c",
+        "system_error": "c",
+        "type_traits": "c",
+        "typeinfo": "c",
+        "xlocmon": "c",
+        "xloctime": "c",
+        "xstddef": "c",
+        "xstring": "c",
+        "*.inc": "c"
     },
     "dotnet.defaultSolution": "disable"
 }

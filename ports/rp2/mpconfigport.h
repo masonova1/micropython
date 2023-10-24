@@ -40,6 +40,8 @@
 #define MICROPY_HW_ENABLE_UART_REPL             (0) // useful if there is no USB
 #define MICROPY_HW_ENABLE_USBDEV                (1)
 
+#define MICROPY_MODULE_BUILTIN_INIT             (1) // Add module init call for setting up engine: https://github.com/micropython/micropython/commit/3c9c3687d6c1001b88ef6dde200566456a1f2641
+
 #ifndef MICROPY_CONFIG_ROM_LEVEL
 #define MICROPY_CONFIG_ROM_LEVEL                (MICROPY_CONFIG_ROM_LEVEL_EXTRA_FEATURES)
 #endif
