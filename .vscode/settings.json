@@ -29,7 +29,8 @@
         "xloctime": "c",
         "xstddef": "c",
         "xstring": "c",
-        "*.inc": "c"
+        "*.inc": "c",
+        "engine_display_draw.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
