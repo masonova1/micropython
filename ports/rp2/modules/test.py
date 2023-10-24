@@ -59,9 +59,6 @@ v = Vector3()
 v.x = 2
 v.y = 2
 v.z = 2
-
-v.test()
-Vector3.test(v)
 print(dir(v))
 print(v, end='')
 
