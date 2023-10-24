@@ -30,6 +30,8 @@
 // Variant-specific definitions.
 #include "mpconfigvariant.h"
 
+#define MICROPY_MODULE_BUILTIN_INIT             (1) // Add module init call for setting up engine: https://github.com/micropython/micropython/commit/3c9c3687d6c1001b88ef6dde200566456a1f2641
+
 // The minimal variant's config covers everything.
 // If we're building the minimal variant, ignore the rest of this file.
 #ifndef MICROPY_UNIX_MINIMAL
