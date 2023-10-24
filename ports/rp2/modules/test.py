@@ -2,6 +2,7 @@ import engine
 from engine import EmptyNode, CameraNode, Vector3
 import gc
 print("dir(engine):",dir(engine))
+print("dir(engine):",dir(engine.camera))
 print("dir(EmptyNode):", dir(EmptyNode))
 print("dir(CameraNode):", dir(CameraNode))
 print("dir(Vector3):", dir(Vector3))
@@ -72,4 +73,4 @@ print(cam.position, end='')
 
 gc.collect()
 
-engine.start()
+# engine.start()
