@@ -1,7 +1,6 @@
 import engine
 from engine import EmptyNode, CameraNode, BitmapSpriteNode, Vector3, Rectangle
 import gc
-import time
 print("dir(engine):",dir(engine))
 print("dir(EmptyNode):", dir(EmptyNode))
 print("dir(CameraNode):", dir(CameraNode))
@@ -17,7 +16,6 @@ class MyNodeA(EmptyNode):
 
     def tick(self):
         print("hi from tick() A")
-        time.sleep_ms(500)
 
 
 class MyNodeB(EmptyNode):
@@ -63,6 +61,14 @@ if(True):
 d = MyNodeD()
 d.set_layer(7)
 
+e = MyNodeA()
+e1 = MyNodeA()
+e2 = MyNodeA()
+e3 = MyNodeA()
+e4 = MyNodeA()
+e5 = MyNodeA()
+e6 = MyNodeA()
+e7 = MyNodeA()
 
 print()
 
