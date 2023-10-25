@@ -1,6 +1,7 @@
 import engine
 from engine import EmptyNode, CameraNode, BitmapSpriteNode, Vector3, Rectangle
 import gc
+import time
 print("dir(engine):",dir(engine))
 print("dir(EmptyNode):", dir(EmptyNode))
 print("dir(CameraNode):", dir(CameraNode))
@@ -8,7 +9,7 @@ print("dir(BitmapSpriteNode):", dir(BitmapSpriteNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-engine.set_debug_print_level(engine.debug_print_level_all)
+engine.debug_enable_all()
 
 class MyNodeA(EmptyNode):
     def __init__(self):
@@ -16,6 +17,7 @@ class MyNodeA(EmptyNode):
 
     def tick(self):
         print("hi from tick() A")
+        time.sleep_ms(500)
 
 
 class MyNodeB(EmptyNode):
@@ -75,7 +77,29 @@ print(v, end='')
 
 cam0 = MyNodeCam()
 cam1 = MyNodeCam()
+cam2 = MyNodeCam()
+cam3 = MyNodeCam()
 
+
+cam0.viewport.x=0
+cam0.viewport.y=0
+cam0.viewport.width=64
+cam0.viewport.height=64
+
+cam1.viewport.x=64
+cam1.viewport.y=0
+cam1.viewport.width=64
+cam1.viewport.height=64
+
+cam2.viewport.x=0
+cam2.viewport.y=64
+cam2.viewport.width=64
+cam2.viewport.height=64
+
+cam3.viewport.x=64
+cam3.viewport.y=64
+cam3.viewport.width=64
+cam3.viewport.height=64
 
 spr = MySprite()
 
