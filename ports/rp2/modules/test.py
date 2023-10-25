@@ -1,10 +1,12 @@
 import engine
-from engine import EmptyNode, CameraNode, Vector3
+from engine import EmptyNode, CameraNode, BitmapSpriteNode, Vector3, Rectangle
 import gc
 print("dir(engine):",dir(engine))
 print("dir(EmptyNode):", dir(EmptyNode))
 print("dir(CameraNode):", dir(CameraNode))
+print("dir(BitmapSpriteNode):", dir(BitmapSpriteNode))
 print("dir(Vector3):", dir(Vector3))
+print("dir(Rectangle):", dir(Rectangle))
 
 engine.set_debug_print_level(engine.debug_print_level_all)
 
@@ -42,6 +44,14 @@ class MyNodeCam(CameraNode):
         # pass
         print("hi from camera!")
 
+class MySprite(BitmapSpriteNode):
+    def __init__(self):
+        super().__init__(self)
+    
+    def tick(self):
+        # pass
+        print("hi from sprite!")
+
 
 a = MyNodeA()
 b = MyNodeB()
@@ -59,19 +69,15 @@ v = Vector3()
 v.x = 2
 v.y = 2
 v.z = 2
-
-v.test()
-Vector3.test(v)
 print(dir(v))
 print(v, end='')
 
 
-cam = MyNodeCam()
-print(cam.position, end='')
-cam.position.x = 1
-cam.position.y = 1
-cam.position.z = 1
-print(cam.position, end='')
+cam0 = MyNodeCam()
+cam1 = MyNodeCam()
+
+
+spr = MySprite()
 
 
 gc.collect()

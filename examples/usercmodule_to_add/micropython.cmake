@@ -3,4 +3,8 @@
 # Paths are absolute, and ${CMAKE_CURRENT_LIST_DIR} can be
 # used to prefix subdirectories.
 
+include(${CMAKE_CURRENT_LIST_DIR}/modlz4/micropython.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/st7789/micropython.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/modraster/micropython.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/modbox2d/micropython.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/engine/micropython.cmake)
