@@ -30,7 +30,12 @@
         "xstddef": "c",
         "xstring": "c",
         "*.inc": "c",
-        "engine_display_draw.h": "c"
+        "engine_display_draw.h": "c",
+        "timeutils.h": "c",
+        "time.h": "c",
+        "timer.h": "c",
+        "rp2040_pio_spi.h": "c",
+        "pico.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
