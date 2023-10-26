@@ -9,6 +9,7 @@ print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
 engine.debug_enable_all()
+# engine.debug_enable_setting(engine.debug_setting_performance)
 
 class MyNodeA(EmptyNode):
     def __init__(self):
