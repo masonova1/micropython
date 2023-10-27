@@ -8,7 +8,7 @@ print("dir(BitmapSpriteNode):", dir(BitmapSpriteNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-engine.debug_enable_all()
+# engine.debug_enable_all()
 # engine.debug_enable_setting(engine.debug_setting_performance)
 
 class MyNodeA(EmptyNode):
@@ -16,7 +16,8 @@ class MyNodeA(EmptyNode):
         super().__init__(self)
 
     def tick(self):
-        print("hi from tick() A")
+        pass
+        # print("hi from tick() A")
 
 
 class MyNodeB(EmptyNode):
@@ -34,24 +35,24 @@ class MyNodeD(EmptyNode):
         super().__init__(self)
     
     def tick(self):
-        # pass
-        print("hi from tick() D")
+        pass
+        # print("hi from tick() D")
 
 class MyNodeCam(CameraNode):
     def __init__(self):
         super().__init__(self)
     
     def tick(self):
-        # pass
-        print("hi from camera!")
+        pass
+        # print("hi from camera!")
 
 class MySprite(BitmapSpriteNode):
     def __init__(self):
         super().__init__(self)
     
     def tick(self):
-        # pass
-        print("hi from sprite!")
+        pass
+        # print("hi from sprite!")
 
 
 a = MyNodeA()

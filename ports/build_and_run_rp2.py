@@ -82,7 +82,7 @@ for port, desc, hwid in sorted(ports):
                 connected = False
                 while connected == False:
                     try:
-                        ser = serial.Serial(board_port, 115200)
+                        ser = serial.Serial(board_port, 4000000, timeout=0.25)
                         print("Connected!")
                         connected = True
                     except:
