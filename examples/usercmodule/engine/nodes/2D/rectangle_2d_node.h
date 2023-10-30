@@ -13,9 +13,7 @@ typedef struct{
     engine_node_base_t node_base;   // Engine node base (holds information about type, linked list location, draw/execution layer, visible, disabled, or just added. Required, must be second element)
     mp_obj_t tick_dest[2];          // Used for caching data used for calling the 'tick()' callback on instances of this node
     mp_obj_t draw_dest[2];          // Used for caching data used for calling the 'draw()' callback on instances of this node
-    mp_obj_t position;              // Vector2: 2d xy position of this node
-    mp_obj_t width;                 // Rectangle width in px
-    mp_obj_t height;                // Rectangle height in px
+    mp_obj_t rect;                  // (Rectangle) Internal rectangle object
     mp_obj_t color;                 // The color of this rectangle
 }engine_rectangle_2d_node_class_obj_t;
 

@@ -45,10 +45,10 @@ mp_obj_t camera_node_class_new(const mp_obj_type_t *type, size_t n_args, size_t 
     ENGINE_INFO_PRINTF("Creating new Rectangle for CameraNode viewport");
     self->viewport = rectangle_class_new(&rectangle_class_type, 0, 0, NULL);
     rectangle_class_obj_t *camera_viewport = MP_OBJ_TO_PTR(self->viewport );
-    camera_viewport->x = 0.0;
-    camera_viewport->y = 0.0;
-    camera_viewport->width = SCREEN_WIDTH;
-    camera_viewport->height = SCREEN_HEIGHT;
+    camera_viewport->pos.x = 0.0;
+    camera_viewport->pos.y = 0.0;
+    camera_viewport->size.x = SCREEN_WIDTH;
+    camera_viewport->size.y = SCREEN_HEIGHT;
 
     return MP_OBJ_FROM_PTR(self);
 }
@@ -114,9 +114,9 @@ STATIC void camera_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *destin
         }else{
             return; // Fail
         }
-        
+
         // Success
-        destination[0] = MP_OBJ_NULL; 
+        destination[0] = MP_OBJ_NULL;
     }
 }
 

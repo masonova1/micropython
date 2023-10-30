@@ -3,12 +3,12 @@
 
 #include "py/obj.h"
 
+#include "vector2.h"
+
 typedef struct{
     mp_obj_base_t base;
-    mp_float_t x;
-    mp_float_t y;
-    mp_float_t width;
-    mp_float_t height;
+    vector2_class_obj_t pos; // Position (x, y)
+    vector2_class_obj_t size; // Size (width, height)
 }rectangle_class_obj_t;
 
 extern const mp_obj_type_t rectangle_class_type;
