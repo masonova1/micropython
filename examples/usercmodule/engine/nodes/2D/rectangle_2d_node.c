@@ -16,7 +16,7 @@ STATIC void rectangle_2d_node_class_print(const mp_print_t *print, mp_obj_t self
 
 mp_obj_t rectangle_2d_node_class_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args){
     ENGINE_INFO_PRINTF("New Rectangle2DNode");
-    
+
     // Check that there's an argument that's hopefully a reference to the inheriting subclass
     mp_arg_check_num(n_args, n_kw, 1, 1, true);
 
@@ -37,9 +37,10 @@ mp_obj_t rectangle_2d_node_class_new(const mp_obj_type_t *type, size_t n_args, s
     mp_load_method(MP_OBJ_TO_PTR(args[0]), MP_QSTR_draw, self->draw_dest);
 
     ENGINE_INFO_PRINTF("Creating new Vector2 for BitmapSprite Node");
-    self->position = vector2_class_new(&vector2_class_type, 0, 0, NULL);
-    self->width = mp_obj_new_int(15);
-    self->height = mp_obj_new_int(5);
+    // self->position = vector2_class_new(&vector2_class_type, 0, 0, NULL);
+    // self->width = mp_obj_new_int(15);
+    // self->height = mp_obj_new_int(5);
+    self->rect = rectangle_class_new(&rectangle_class_type, 0, 0, NULL);
     self->color = mp_obj_new_int(0xffff);
 
     return MP_OBJ_FROM_PTR(self);
@@ -69,11 +70,11 @@ STATIC mp_obj_t rectangle_2d_node_class_draw(mp_obj_t self_in, mp_obj_t camera_o
     ENGINE_INFO_PRINTF("Rectangle2DNode: Drawing");
 
     engine_rectangle_2d_node_class_obj_t *self = MP_OBJ_TO_PTR(self_in);
-    ENGINE_FORCE_PRINTF("TEST %lu", self->width);
+    //ENGINE_FORCE_PRINTF("TEST %lu", self->rect->size.x);
     // vector2_class_obj_t *self_position = self->position;
 
     // engine_camera_node_class_obj_t *camera = MP_OBJ_TO_PTR(camera_obj);
-    
+
     // ENGINE_FORCE_PRINTF("TEST %lu", self->height);
 
     // // Rotation not implemented yet so this is simple!
@@ -114,26 +115,28 @@ STATIC void rectangle_2d_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *
 
     if(destination[0] == MP_OBJ_NULL){          // Load
         switch(attribute){
-            case MP_QSTR_position:
-                destination[0] = self->position;
+            case MP_QSTR_rect:
+                destination[0] = m_new_obj(rectangle_class_obj_t);
+                ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &rectangle_class_type;
+                ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->pos = ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(self->rect))->pos;
+                ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->size = ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(self->rect))->size;
             break;
-            case MP_QSTR_width:
-                destination[0] = self->width;
-            break;
-            case MP_QSTR_height:
-                destination[0] = self->height;
-            break;
+            // case MP_QSTR_width:
+            //     destination[0] = self->width;
+            // break;
+            // case MP_QSTR_height:
+            //     destination[0] = self->height;
+            // break;
+            default: break;
         }
     }else if(destination[1] != MP_OBJ_NULL){    // Store
         switch(attribute){
             case MP_QSTR_position:
                 ENGINE_WARNING_PRINTF("Setting position not implemented!");
             break;
-            case MP_QSTR_width:
-                self->width = destination[1];
-            break;
-            case MP_QSTR_height:
-                self->height = destination[1];
+            case MP_QSTR_rect:
+                //self->width = destination[1];
+                ENGINE_WARNING_PRINTF("Setting rect not implemented!");
             break;
             default:
                 return; // Fail
