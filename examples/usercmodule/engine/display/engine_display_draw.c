@@ -8,10 +8,10 @@
 
 
 inline bool is_xy_inside_viewport(int32_t x, int32_t y, rectangle_class_obj_t *camera_viewport){
-    if( x >= (int32_t)camera_viewport->x &&
-        y >= (int32_t)camera_viewport->y &&
-        x < (int32_t)camera_viewport->x+camera_viewport->width &&
-        y < (int32_t)camera_viewport->y+camera_viewport->height){
+    if( x >= (int32_t)camera_viewport->pos.x &&
+        y >= (int32_t)camera_viewport->pos.y &&
+        x < (int32_t)camera_viewport->pos.x+camera_viewport->size.x &&
+        y < (int32_t)camera_viewport->pos.y+camera_viewport->size.y){
 
         return true;
     }
@@ -44,8 +44,8 @@ void engine_draw_pixel(uint16_t color, int32_t x, int32_t y, engine_camera_node_
         vector3_class_obj_t *camera_position = camera->position;
         rectangle_class_obj_t *camera_viewport = camera->viewport;
 
-        int32_t result_x = ((int32_t)camera_viewport->x) + (x - (int32_t)camera_position->x);
-        int32_t result_y = ((int32_t)camera_viewport->y) + (y - (int32_t)camera_position->y);
+        int32_t result_x = ((int32_t)camera_viewport->pos.x) + (x - (int32_t)camera_position->x);
+        int32_t result_y = ((int32_t)camera_viewport->pos.y) + (y - (int32_t)camera_position->y);
 
         if(is_xy_inside_viewport(result_x, result_y, camera_viewport)){
             screen_buffer[result_y*SCREEN_WIDTH + result_x] = color;

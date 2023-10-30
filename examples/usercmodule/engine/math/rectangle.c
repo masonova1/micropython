@@ -4,31 +4,54 @@
 // Class required functions
 STATIC void rectangle_class_print(const mp_print_t *print, mp_obj_t self_in, mp_print_kind_t kind){
     rectangle_class_obj_t *self = self_in;
-    ENGINE_INFO_PRINTF("print(): rectangle [x: %0.3f, y: %0.3f, width: %0.3f, height: %0.3f]", (double)self->x, (double)self->y, (double)self->width, (double)self->height);
+    ENGINE_INFO_PRINTF("print(): rectangle [x: %0.3f, y: %0.3f, width: %0.3f, height: %0.3f]", (double)self->pos.x, (double)self->pos.y, (double)self->size.x, (double)self->size.y);
 }
 
 mp_obj_t rectangle_class_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args){
     ENGINE_INFO_PRINTF("New rectangle");
-    mp_arg_check_num(n_args, n_kw, 0, 0, true);
 
     rectangle_class_obj_t *self = m_new_obj(rectangle_class_obj_t);
     self->base.type = &rectangle_class_type;
 
-    self->x = 0.0f;
-    self->y = 0.0f;
-    self->width = 0.0f;
-    self->height = 0.0f;
+    if(n_args == 0) {
+      self->base.type = &rectangle_class_type;
+      self->pos.x = 0.f;
+      self->pos.y = 0.f;
+      self->size.x = 0.f;
+      self->size.y = 0.f;
+  } else if(n_args == 2) {
+      if(!mp_obj_is_type(args[0], &vector2_class_type) || !mp_obj_is_type(args[1], &vector2_class_type)){
+          mp_raise_TypeError("expected vector arguments");
+      }
+      self->base.type = &rectangle_class_type;
+      self->pos = *((vector2_class_obj_t*)MP_OBJ_TO_PTR(args[0]));
+      self->size = *((vector2_class_obj_t*)MP_OBJ_TO_PTR(args[1]));
+    } else {
+      mp_raise_TypeError("function takes 0 or 2 arguments");
+    }
 
     return MP_OBJ_FROM_PTR(self);
 }
 
 
 // Class methods
-STATIC mp_obj_t rectangle_class_area(mp_obj_t self){
-    ENGINE_INFO_PRINTF("Rectangle area: TODO");
-    return mp_const_none;
+STATIC mp_obj_t rectangle_class_area(mp_obj_t self_in){
+    const rectangle_class_obj_t* self = MP_OBJ_TO_PTR(self_in);
+    return mp_obj_new_float(self->size.x * self->size.y);
 }
 MP_DEFINE_CONST_FUN_OBJ_1(rectangle_class_area_obj, rectangle_class_area);
+
+// Class methods
+STATIC mp_obj_t rectangle_class_overlap_test(mp_obj_t self_in, mp_obj_t b_in){
+    const rectangle_class_obj_t* self = MP_OBJ_TO_PTR(self_in);
+    const rectangle_class_obj_t* b = MP_OBJ_TO_PTR(b_in);
+    if(b->pos.x + b->size.x < self->pos.x) return mp_const_false;
+    else if(self->pos.x + self->size.x < b->pos.x) return mp_const_false;
+    else if(b->pos.y + b->size.y < self->pos.y) return mp_const_false;
+    else if(self->pos.y + self->size.y < b->pos.y) return mp_const_false;
+    else return mp_const_true;
+}
+MP_DEFINE_CONST_FUN_OBJ_2(rectangle_class_overlap_test_obj, rectangle_class_overlap_test);
 
 
 // Function called when accessing like print(my_node.position.x) (load 'x')
@@ -39,29 +62,27 @@ STATIC void rectangle_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *des
     rectangle_class_obj_t *self = MP_OBJ_TO_PTR(self_in);
 
     if(destination[0] == MP_OBJ_NULL){          // Load
-        if(attribute == MP_QSTR_x){
-            destination[0] = (mp_obj_t*)(&self->x);
-        }else if(attribute == MP_QSTR_y){
-            destination[0] = (mp_obj_t*)(&self->y);
-        }else if(attribute == MP_QSTR_width){
-            destination[0] = (mp_obj_t*)(&self->width);
-        }else if(attribute == MP_QSTR_height){
-            destination[0] = (mp_obj_t*)(&self->height);
-        }else if(attribute == MP_QSTR_area){
-            destination[0] = MP_OBJ_FROM_PTR(&rectangle_class_area_obj);
-            destination[1] = self_in;
+        switch(attribute) {
+            case MP_QSTR_pos:
+                destination[0] = m_new_obj(vector2_class_obj_t);
+                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &vector2_class_type;
+                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->x = self->pos.x;
+                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->y = self->pos.y;
+                break;
+            case MP_QSTR_size:
+                destination[0] = m_new_obj(vector2_class_obj_t);
+                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &vector2_class_type;
+                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->x = self->size.x;
+                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->y = self->size.y;
+                break;
+            case MP_QSTR_area: destination[0] = MP_OBJ_FROM_PTR(&rectangle_class_area_obj); destination[1] = self_in; break;
+            default: break;
         }
     }else if(destination[1] != MP_OBJ_NULL){    // Store
-        if(attribute == MP_QSTR_x){
-            self->x = mp_obj_get_float(destination[1]);
-        }else if(attribute == MP_QSTR_y){
-            self->y = mp_obj_get_float(destination[1]);
-        }else if(attribute == MP_QSTR_width){
-            self->width = mp_obj_get_float(destination[1]);
-        }else if(attribute == MP_QSTR_height){
-            self->height = mp_obj_get_float(destination[1]);
-        }else{
-            return;
+        switch(attribute) {
+            case MP_QSTR_pos: self->pos = *((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[1])); break;
+            case MP_QSTR_size: self->size = *((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[1])); break;
+            default: return;
         }
 
         // Success
@@ -73,6 +94,7 @@ STATIC void rectangle_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *des
 // Class attributes
 STATIC const mp_rom_map_elem_t rectangle_class_locals_dict_table[] = {
     { MP_ROM_QSTR(MP_QSTR_area), MP_ROM_PTR(&rectangle_class_area_obj) },
+    { MP_ROM_QSTR(MP_QSTR_overlap_test), MP_ROM_PTR(&rectangle_class_overlap_test_obj) },
 };
 
 

@@ -161,23 +161,23 @@ STATIC void vector2_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *desti
 
     if(destination[0] == MP_OBJ_NULL){          // Load
         switch(attribute) {
-          case MP_QSTR_x: destination[0] = mp_obj_new_float(self->x); break;
-          case MP_QSTR_y: destination[0] = mp_obj_new_float(self->y); break;
-          case MP_QSTR_dot: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_dot_obj); destination[1] = self_in; break;
-          case MP_QSTR_cross: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_cross_obj); destination[1] = self_in; break;
-          case MP_QSTR_len2: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_len2_obj); destination[1] = self_in; break;
-          case MP_QSTR_len: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_len_obj); destination[1] = self_in; break;
-          case MP_QSTR_normal: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_normal_obj); destination[1] = self_in; break;
-          case MP_QSTR_normalize: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_normalize_obj); destination[1] = self_in; break;
-          case MP_QSTR_resize: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_resize_obj); destination[1] = self_in; break;
-          case MP_QSTR_rotateZ: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_rotateZ_obj); destination[1] = self_in; break;
-          default: break;
+            case MP_QSTR_x: destination[0] = mp_obj_new_float(self->x); break;
+            case MP_QSTR_y: destination[0] = mp_obj_new_float(self->y); break;
+            case MP_QSTR_dot: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_dot_obj); destination[1] = self_in; break;
+            case MP_QSTR_cross: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_cross_obj); destination[1] = self_in; break;
+            case MP_QSTR_len2: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_len2_obj); destination[1] = self_in; break;
+            case MP_QSTR_len: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_len_obj); destination[1] = self_in; break;
+            case MP_QSTR_normal: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_normal_obj); destination[1] = self_in; break;
+            case MP_QSTR_normalize: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_normalize_obj); destination[1] = self_in; break;
+            case MP_QSTR_resize: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_resize_obj); destination[1] = self_in; break;
+            case MP_QSTR_rotateZ: destination[0] = MP_OBJ_FROM_PTR(&vector2_class_rotateZ_obj); destination[1] = self_in; break;
+            default: break;
         }
     }else if(destination[1] != MP_OBJ_NULL){    // Store
         switch(attribute) {
-          case MP_QSTR_x: self->x = mp_obj_get_float(destination[1]); break;
-          case MP_QSTR_y: self->y = mp_obj_get_float(destination[1]); break;
-          default: return;
+            case MP_QSTR_x: self->x = mp_obj_get_float(destination[1]); break;
+            case MP_QSTR_y: self->y = mp_obj_get_float(destination[1]); break;
+            default: return;
         }
 
         // Success
