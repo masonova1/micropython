@@ -25,19 +25,12 @@ def resizeVec2VecTest() -> bool:
     v2 = engine.Vector2(2, 3)
     
     v1.resize(v2)
-    print(v1.len2())
-    print(v2.len2())
-    print(str(v1.x) + ", "+ str(v1.y))
-    print(v2)
-    print(v1.cross(v2))
     return float_compare_eq(v1.len2(), v2.len2())
 
 def resizeVec2ScalarTest() -> bool:
     v1 = engine.Vector2(5, 10)
     mag = 5.0
     v1.resize(mag)
-    print(v1.cross(engine.Vector2(5, 10)))
-    print(v1.len2())
     return (float_compare_eq(v1.len2(), mag*mag) and float_compare_eq(v1.cross(engine.Vector2(5, 10)), 0))
 
 resultDict = {}
