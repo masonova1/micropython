@@ -115,15 +115,16 @@ STATIC void rectangle_2d_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *
 
     if(destination[0] == MP_OBJ_NULL){          // Load
         switch(attribute){
-            case MP_QSTR_rect: destination[0] = rectangle_class_copy((rectangle_class_obj_t*)MP_OBJ_TO_PTR(self->rect)); break;
+            // case MP_QSTR_rect: destination[0] = rectangle_class_copy((rectangle_class_obj_t*)MP_OBJ_TO_PTR(self->rect)); break;
+            case MP_QSTR_rect: destination[0] = self->rect; break;
             default: break;
         }
     }else if(destination[1] != MP_OBJ_NULL){    // Store
         switch(attribute){
             case MP_QSTR_rect:
-                // ENGINE_WARNING_PRINTF("Setting rect not implemented!");
-                self->rect = rectangle_class_copy((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[1]));
-            break;
+                ENGINE_WARNING_PRINTF("Setting rectangle");
+                //self->rect = rectangle_class_copy((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[1]));
+                self->rect = destination[1]; break;
             default:
                 return; // Fail
         }

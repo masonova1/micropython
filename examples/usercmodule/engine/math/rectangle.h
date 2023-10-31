@@ -7,12 +7,13 @@
 
 typedef struct{
     mp_obj_base_t base;
-    vector2_class_obj_t pos; // Position (x, y)
-    vector2_class_obj_t size; // Size (width, height)
+    mp_obj_t pos; // Position (x, y)
+    mp_obj_t size; // Size (width, height)
 }rectangle_class_obj_t;
 
 extern const mp_obj_type_t rectangle_class_type;
 
 mp_obj_t rectangle_class_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args);
+mp_obj_t rectangle_class_copy(const rectangle_class_obj_t *r);
 
 #endif  // RECTANGLE_H
