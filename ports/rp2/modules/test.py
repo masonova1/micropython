@@ -30,6 +30,8 @@ test1 = MyRect2D()
 
 test0 = Rectangle2DNode()
 test0.set_width(50)
+print(test0.get_width())
+print(test0.get_height())
 
 
 class MyNodeCam(CameraNode):
@@ -78,7 +80,7 @@ cam = MyNodeCam()
 # # print(dir(v))
 # # print(v, end='')
 
-engine.start()
+# engine.start()
 
 
 # class MyNodeA(EmptyNode):
