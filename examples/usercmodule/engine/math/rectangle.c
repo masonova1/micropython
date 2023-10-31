@@ -33,6 +33,14 @@ mp_obj_t rectangle_class_new(const mp_obj_type_t *type, size_t n_args, size_t n_
     return MP_OBJ_FROM_PTR(self);
 }
 
+mp_obj_t rectangle_class_copy(const rectangle_class_obj_t *r) {
+    rectangle_class_obj_t* ret = m_new_obj(rectangle_class_obj_t);
+    ret->base.type = &rectangle_class_type;
+    ret->pos = r->pos;
+    ret->size = r->size;
+    return MP_OBJ_FROM_PTR(ret);
+}
+
 
 // Class methods
 STATIC mp_obj_t rectangle_class_area(mp_obj_t self_in){
@@ -63,20 +71,8 @@ STATIC void rectangle_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *des
 
     if(destination[0] == MP_OBJ_NULL){          // Load
         switch(attribute) {
-            case MP_QSTR_pos:
-                destination[0] = vector2_class_copy(&(self->pos)); break;
-                // destination[0] = m_new_obj(vector2_class_obj_t);
-                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &vector2_class_type;
-                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->x = self->pos.x;
-                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->y = self->pos.y;
-                // break;
-            case MP_QSTR_size:
-                destination[0] = vector2_class_copy(&(self->size)); break;
-                // destination[0] = m_new_obj(vector2_class_obj_t);
-                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &vector2_class_type;
-                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->x = self->size.x;
-                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->y = self->size.y;
-                // break;
+            case MP_QSTR_pos: destination[0] = vector2_class_copy(&(self->pos)); break;
+            case MP_QSTR_size: destination[0] = vector2_class_copy(&(self->size)); break;
             case MP_QSTR_area: destination[0] = MP_OBJ_FROM_PTR(&rectangle_class_area_obj); destination[1] = self_in; break;
             default: break;
         }
