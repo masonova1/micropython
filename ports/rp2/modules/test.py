@@ -22,19 +22,20 @@ class MyNodeCam(CameraNode):
         # print("hi from camera!")
 
 
-class MySprite(BitmapSpriteNode):
-    def __init__(self):
-        super().__init__(self)
-        # self.height = 10
+# class MySprite(BitmapSpriteNode):
+#     def __init__(self):
+#         super().__init__(self)
+#         # self.height = 10
 
-    def tick(self):
-        pass
-        # print("hi from sprite!")
+#     def tick(self):
+#         pass
+#         # print("hi from sprite!")
 
 
 class MyRect2D(Rectangle2DNode):
     def __init__(self):
         super().__init__(self)
+
         # self.width = 5
         # self.position.x = 10
     
@@ -42,10 +43,13 @@ class MyRect2D(Rectangle2DNode):
         pass
         # print("hi from sprite!")
 
-a = MySprite()
+# a = MySprite()
 b = MyRect2D()
 c = MyNodeCam()
-print(b.width)
+b.set_width(5)
+# print(b.width)
+# b.width = 10
+# print(b.width)
 
 # a.position.x = 0
 # b.position.x = 10
