@@ -64,17 +64,19 @@ STATIC void rectangle_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *des
     if(destination[0] == MP_OBJ_NULL){          // Load
         switch(attribute) {
             case MP_QSTR_pos:
-                destination[0] = m_new_obj(vector2_class_obj_t);
-                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &vector2_class_type;
-                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->x = self->pos.x;
-                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->y = self->pos.y;
-                break;
+                destination[0] = vector2_class_copy(&(self->pos)); break;
+                // destination[0] = m_new_obj(vector2_class_obj_t);
+                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &vector2_class_type;
+                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->x = self->pos.x;
+                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->y = self->pos.y;
+                // break;
             case MP_QSTR_size:
-                destination[0] = m_new_obj(vector2_class_obj_t);
-                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &vector2_class_type;
-                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->x = self->size.x;
-                ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->y = self->size.y;
-                break;
+                destination[0] = vector2_class_copy(&(self->size)); break;
+                // destination[0] = m_new_obj(vector2_class_obj_t);
+                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &vector2_class_type;
+                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->x = self->size.x;
+                // ((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->y = self->size.y;
+                // break;
             case MP_QSTR_area: destination[0] = MP_OBJ_FROM_PTR(&rectangle_class_area_obj); destination[1] = self_in; break;
             default: break;
         }
