@@ -115,28 +115,14 @@ STATIC void rectangle_2d_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *
 
     if(destination[0] == MP_OBJ_NULL){          // Load
         switch(attribute){
-            case MP_QSTR_rect:
-                destination[0] = m_new_obj(rectangle_class_obj_t);
-                ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->base.type = &rectangle_class_type;
-                ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->pos = ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(self->rect))->pos;
-                ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[0]))->size = ((rectangle_class_obj_t*)MP_OBJ_TO_PTR(self->rect))->size;
-            break;
-            // case MP_QSTR_width:
-            //     destination[0] = self->width;
-            // break;
-            // case MP_QSTR_height:
-            //     destination[0] = self->height;
-            // break;
+            case MP_QSTR_rect: destination[0] = rectangle_class_copy((rectangle_class_obj_t*)MP_OBJ_TO_PTR(self->rect)); break;
             default: break;
         }
     }else if(destination[1] != MP_OBJ_NULL){    // Store
         switch(attribute){
-            case MP_QSTR_position:
-                ENGINE_WARNING_PRINTF("Setting position not implemented!");
-            break;
             case MP_QSTR_rect:
-                //self->width = destination[1];
-                ENGINE_WARNING_PRINTF("Setting rect not implemented!");
+                // ENGINE_WARNING_PRINTF("Setting rect not implemented!");
+                self->rect = rectangle_class_copy((rectangle_class_obj_t*)MP_OBJ_TO_PTR(destination[1]));
             break;
             default:
                 return; // Fail
