@@ -13,25 +13,6 @@ engine.debug_enable_all()
 # engine.debug_enable_setting(engine.debug_setting_performance)
 
 
-class MyNodeCam(CameraNode):
-    def __init__(self):
-        super().__init__(self)
-    
-    def tick(self):
-        pass
-        # print("hi from camera!")
-
-
-# class MySprite(BitmapSpriteNode):
-#     def __init__(self):
-#         super().__init__(self)
-#         # self.height = 10
-
-#     def tick(self):
-#         pass
-#         # print("hi from sprite!")
-
-
 class MyRect2D(Rectangle2DNode):
     def __init__(self):
         super().__init__(self)
@@ -43,20 +24,59 @@ class MyRect2D(Rectangle2DNode):
         pass
         # print("hi from sprite!")
 
-# a = MySprite()
-b = MyRect2D()
-c = MyNodeCam()
-b.set_width(5)
-# print(b.width)
-# b.width = 10
-# print(b.width)
 
-# a.position.x = 0
-# b.position.x = 10
+test1 = MyRect2D()
 
 
-# print(dir(v))
-# print(v, end='')
+test0 = Rectangle2DNode()
+test0.set_width(50)
+
+
+class MyNodeCam(CameraNode):
+    def __init__(self):
+        super().__init__(self)
+    
+    def tick(self):
+        pass
+        # print("hi from camera!")
+
+cam = MyNodeCam()
+
+# # class MySprite(BitmapSpriteNode):
+# #     def __init__(self):
+# #         super().__init__(self)
+# #         # self.height = 10
+
+# #     def tick(self):
+# #         pass
+# #         # print("hi from sprite!")
+
+
+# class MyRect2D(Rectangle2DNode):
+#     def __init__(self):
+#         super().__init__(self)
+
+#         # self.width = 5
+#         # self.position.x = 10
+    
+#     def tick(self):
+#         pass
+#         # print("hi from sprite!")
+
+# # a = MySprite()
+# b = MyRect2D()
+# c = MyNodeCam()
+# b.set_width(5)
+# # print(b.width)
+# # b.width = 10
+# # print(b.width)
+
+# # a.position.x = 0
+# # b.position.x = 10
+
+
+# # print(dir(v))
+# # print(v, end='')
 
 engine.start()
 
