@@ -10,10 +10,10 @@
 inline bool is_xy_inside_viewport(int32_t x, int32_t y, rectangle_class_obj_t *camera_viewport){
     vector2_class_obj_t* pos = MP_OBJ_TO_PTR(camera_viewport->pos);
     vector2_class_obj_t* size = MP_OBJ_TO_PTR(camera_viewport->size);
-    if( x >= (int32_t)pos->x &&
-        y >= (int32_t)pos->y &&
-        x < (int32_t)pos->x+size->x &&
-        y < (int32_t)pos->y+size->y){
+    if( x >= (int32_t)mp_obj_get_float(pos->x) &&
+        y >= (int32_t)mp_obj_get_float(pos->y) &&
+        x < (int32_t)mp_obj_get_float(pos->x)+mp_obj_get_float(size->x) &&
+        y < (int32_t)mp_obj_get_float(pos->y)+mp_obj_get_float(size->y)){
 
         return true;
     }
@@ -46,13 +46,13 @@ void engine_draw_pixel(uint16_t color, int32_t x, int32_t y, engine_camera_node_
         vector2_class_obj_t* pos = MP_OBJ_TO_PTR(camera_viewport->pos);
         vector2_class_obj_t* size = MP_OBJ_TO_PTR(camera_viewport->size);
 
-        int32_t result_x = ((int32_t)pos->x) + (x - (int32_t)camera_position->x);
-        int32_t result_y = ((int32_t)pos->y) + (y - (int32_t)camera_position->y);
+        int32_t result_x = ((int32_t)mp_obj_get_float(pos->x)) + (x - (int32_t)mp_obj_get_float(camera_position->x));
+        int32_t result_y = ((int32_t)mp_obj_get_float(pos->y)) + (y - (int32_t)mp_obj_get_float(camera_position->y));
 
         if(is_xy_inside_viewport(result_x, result_y, camera_viewport)){
             screen_buffer[result_y*SCREEN_WIDTH + result_x] = color;
         }else{
-            ENGINE_WARNING_PRINTF("Tried to draw pixel outside of viewport bounds, clipped");
+            ENGINE_WARNING_PRINTF("Tried to draw pixel (%0.3f, %0.3f) outside of viewport bounds, clipped", (double)result_x, (double)result_y);
         }
     }
 }

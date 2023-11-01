@@ -56,8 +56,8 @@ STATIC mp_obj_t rectangle_class_overlap_test(mp_obj_t self_in, mp_obj_t b_in){
     const rectangle_class_obj_t* b = MP_OBJ_TO_PTR(b_in);
     vector2_class_obj_t* apos = MP_OBJ_TO_PTR(self->pos);
     vector2_class_obj_t* asize = MP_OBJ_TO_PTR(self->size);
-    vector2_class_obj_t* bpos = MP_OBJ_TO_PTR(self->pos);
-    vector2_class_obj_t* bsize = MP_OBJ_TO_PTR(self->size);
+    vector2_class_obj_t* bpos = MP_OBJ_TO_PTR(b->pos);
+    vector2_class_obj_t* bsize = MP_OBJ_TO_PTR(b->size);
     if(mp_obj_get_float(bpos->x) + mp_obj_get_float(bsize->x) < mp_obj_get_float(apos->x)) return mp_const_false;
     else if(mp_obj_get_float(apos->x) + mp_obj_get_float(asize->x) < mp_obj_get_float(bpos->x)) return mp_const_false;
     else if(mp_obj_get_float(bpos->y) + mp_obj_get_float(bsize->y) < mp_obj_get_float(apos->y)) return mp_const_false;

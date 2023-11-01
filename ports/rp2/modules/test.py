@@ -52,6 +52,21 @@ r = engine.Rectangle()
 
 print(dir(r))
 
+class pRect(Rectangle):
+    def __init__(self):
+        pass
+        # self.width = 5
+        # self.position.x = 10
+    
+    def tick(self):
+        pass
+        # print("hi from sprite!")
+        
+test = pRect()
+
+test.pos = engine.Vector2(5, 6)
+print(test.pos)
+
 # a.position.x = 0
 # b.position.x = 10
 
@@ -59,7 +74,7 @@ print(dir(r))
 # print(dir(v))
 # print(v, end='')
 
-# engine.start()
+engine.start()
 
 
 # class MyNodeA(EmptyNode):
