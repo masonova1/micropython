@@ -21,7 +21,8 @@ class MyRect2D(Rectangle2DNode):
         super().__init__(self)
 
         self.width = 5
-        # self.position.x = 10
+        self.color = 0b1111100000011111
+        self.position.x = 10
     
     def tick(self):
         pass
