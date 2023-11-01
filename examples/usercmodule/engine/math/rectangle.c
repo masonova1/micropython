@@ -6,7 +6,7 @@ STATIC void rectangle_class_print(const mp_print_t *print, mp_obj_t self_in, mp_
     rectangle_class_obj_t *self = self_in;
     vector2_class_obj_t* pos = MP_OBJ_TO_PTR(self->pos);
     vector2_class_obj_t* size = MP_OBJ_TO_PTR(self->size);
-    ENGINE_INFO_PRINTF("print(): rectangle [x: %0.3f, y: %0.3f, width: %0.3f, height: %0.3f]", (double)pos->x, (double)pos->y, (double)size->x, (double)size->y);
+    ENGINE_INFO_PRINTF("print(): rectangle [x: %0.3f, y: %0.3f, width: %0.3f, height: %0.3f]", (double)mp_obj_get_float(pos->x), (double)mp_obj_get_float(pos->y), (double)mp_obj_get_float(size->x), (double)mp_obj_get_float(size->y));
 }
 
 mp_obj_t rectangle_class_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args){
@@ -17,12 +17,8 @@ mp_obj_t rectangle_class_new(const mp_obj_type_t *type, size_t n_args, size_t n_
 
     if(n_args == 0) {
       self->base.type = &rectangle_class_type;
-      vector2_class_obj_t* pos = MP_OBJ_TO_PTR(self->pos);
-      pos->x = 0.f;
-      pos->y = 0.f;
-      vector2_class_obj_t* size = MP_OBJ_TO_PTR(self->size);
-      size->x = 0.f;
-      size->y = 0.f;
+      self->pos = vector2_class_new(&vector2_class_type, 0, 0, MP_OBJ_NULL);
+      self->size = vector2_class_new(&vector2_class_type, 0, 0, MP_OBJ_NULL);
   } else if(n_args == 2) {
       if(!mp_obj_is_type(args[0], &vector2_class_type) || !mp_obj_is_type(args[1], &vector2_class_type)){
           mp_raise_TypeError("expected vector arguments");
@@ -50,7 +46,7 @@ mp_obj_t rectangle_class_copy(const rectangle_class_obj_t *r) {
 STATIC mp_obj_t rectangle_class_area(mp_obj_t self_in){
     const rectangle_class_obj_t* self = MP_OBJ_TO_PTR(self_in);
     vector2_class_obj_t* size = MP_OBJ_TO_PTR(self->size);
-    return mp_obj_new_float(size->x * size->y);
+    return mp_obj_new_float(mp_obj_get_float(size->x) * mp_obj_get_float(size->y));
 }
 MP_DEFINE_CONST_FUN_OBJ_1(rectangle_class_area_obj, rectangle_class_area);
 
@@ -60,12 +56,12 @@ STATIC mp_obj_t rectangle_class_overlap_test(mp_obj_t self_in, mp_obj_t b_in){
     const rectangle_class_obj_t* b = MP_OBJ_TO_PTR(b_in);
     vector2_class_obj_t* apos = MP_OBJ_TO_PTR(self->pos);
     vector2_class_obj_t* asize = MP_OBJ_TO_PTR(self->size);
-    vector2_class_obj_t* bpos = MP_OBJ_TO_PTR(b->pos);
-    vector2_class_obj_t* bsize = MP_OBJ_TO_PTR(b->size);
-    if(bpos->x + bsize->x < apos->x) return mp_const_false;
-    else if(apos->x + asize->x < bpos->x) return mp_const_false;
-    else if(bpos->y + bsize->y < apos->y) return mp_const_false;
-    else if(apos->y + asize->y < bpos->y) return mp_const_false;
+    vector2_class_obj_t* bpos = MP_OBJ_TO_PTR(self->pos);
+    vector2_class_obj_t* bsize = MP_OBJ_TO_PTR(self->size);
+    if(mp_obj_get_float(bpos->x) + mp_obj_get_float(bsize->x) < mp_obj_get_float(apos->x)) return mp_const_false;
+    else if(mp_obj_get_float(apos->x) + mp_obj_get_float(asize->x) < mp_obj_get_float(bpos->x)) return mp_const_false;
+    else if(mp_obj_get_float(bpos->y) + mp_obj_get_float(bsize->y) < mp_obj_get_float(apos->y)) return mp_const_false;
+    else if(mp_obj_get_float(apos->y) + mp_obj_get_float(asize->y) < mp_obj_get_float(bpos->y)) return mp_const_false;
     else return mp_const_true;
 }
 MP_DEFINE_CONST_FUN_OBJ_2(rectangle_class_overlap_test_obj, rectangle_class_overlap_test);
@@ -76,8 +72,6 @@ MP_DEFINE_CONST_FUN_OBJ_2(rectangle_class_overlap_test_obj, rectangle_class_over
 // See https://micropython-usermod.readthedocs.io/en/latest/usermods_09.html#properties
 // See https://github.com/micropython/micropython/blob/91a3f183916e1514fbb8dc58ca5b77acc59d4346/extmod/modasyncio.c#L227
 STATIC void rectangle_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *destination){
-    ENGINE_INFO_PRINTF("Accessing Rectangle attr");
-
     rectangle_class_obj_t *self = MP_OBJ_TO_PTR(self_in);
 
     if(destination[0] == MP_OBJ_NULL){          // Load

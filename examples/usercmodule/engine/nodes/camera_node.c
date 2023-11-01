@@ -47,10 +47,10 @@ mp_obj_t camera_node_class_new(const mp_obj_type_t *type, size_t n_args, size_t 
     rectangle_class_obj_t *camera_viewport = MP_OBJ_TO_PTR(self->viewport );
     vector2_class_obj_t* pos = MP_OBJ_TO_PTR(camera_viewport->pos);
     vector2_class_obj_t* size = MP_OBJ_TO_PTR(camera_viewport->size);
-    pos->x = 0.0;
-    pos->y = 0.0;
-    size->x = SCREEN_WIDTH;
-    size->y = SCREEN_HEIGHT;
+    pos->x = mp_obj_new_float(0.0);
+    pos->y = mp_obj_new_float(0.0);
+    size->x = mp_obj_new_float(SCREEN_WIDTH);
+    size->y = mp_obj_new_float(SCREEN_HEIGHT);
 
     return MP_OBJ_FROM_PTR(self);
 }
