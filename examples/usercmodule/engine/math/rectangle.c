@@ -4,7 +4,9 @@
 // Class required functions
 STATIC void rectangle_class_print(const mp_print_t *print, mp_obj_t self_in, mp_print_kind_t kind){
     rectangle_class_obj_t *self = self_in;
-    ENGINE_INFO_PRINTF("print(): rectangle [x: %0.3f, y: %0.3f, width: %0.3f, height: %0.3f]", (double)self->pos.x, (double)self->pos.y, (double)self->size.x, (double)self->size.y);
+    vector2_class_obj_t* pos = MP_OBJ_TO_PTR(self->pos);
+    vector2_class_obj_t* size = MP_OBJ_TO_PTR(self->size);
+    ENGINE_INFO_PRINTF("print(): rectangle [x: %0.3f, y: %0.3f, width: %0.3f, height: %0.3f]", (double)mp_obj_get_float(pos->x), (double)mp_obj_get_float(pos->y), (double)mp_obj_get_float(size->x), (double)mp_obj_get_float(size->y));
 }
 
 mp_obj_t rectangle_class_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args){
@@ -15,17 +17,15 @@ mp_obj_t rectangle_class_new(const mp_obj_type_t *type, size_t n_args, size_t n_
 
     if(n_args == 0) {
       self->base.type = &rectangle_class_type;
-      self->pos.x = 0.f;
-      self->pos.y = 0.f;
-      self->size.x = 0.f;
-      self->size.y = 0.f;
+      self->pos = vector2_class_new(&vector2_class_type, 0, 0, MP_OBJ_NULL);
+      self->size = vector2_class_new(&vector2_class_type, 0, 0, MP_OBJ_NULL);
   } else if(n_args == 2) {
       if(!mp_obj_is_type(args[0], &vector2_class_type) || !mp_obj_is_type(args[1], &vector2_class_type)){
           mp_raise_TypeError("expected vector arguments");
       }
       self->base.type = &rectangle_class_type;
-      self->pos = *((vector2_class_obj_t*)MP_OBJ_TO_PTR(args[0]));
-      self->size = *((vector2_class_obj_t*)MP_OBJ_TO_PTR(args[1]));
+      self->pos = args[0];
+      self->size = args[1];
     } else {
       mp_raise_TypeError("function takes 0 or 2 arguments");
     }
@@ -45,7 +45,8 @@ mp_obj_t rectangle_class_copy(const rectangle_class_obj_t *r) {
 // Class methods
 STATIC mp_obj_t rectangle_class_area(mp_obj_t self_in){
     const rectangle_class_obj_t* self = MP_OBJ_TO_PTR(self_in);
-    return mp_obj_new_float(self->size.x * self->size.y);
+    vector2_class_obj_t* size = MP_OBJ_TO_PTR(self->size);
+    return mp_obj_new_float(mp_obj_get_float(size->x) * mp_obj_get_float(size->y));
 }
 MP_DEFINE_CONST_FUN_OBJ_1(rectangle_class_area_obj, rectangle_class_area);
 
@@ -53,10 +54,14 @@ MP_DEFINE_CONST_FUN_OBJ_1(rectangle_class_area_obj, rectangle_class_area);
 STATIC mp_obj_t rectangle_class_overlap_test(mp_obj_t self_in, mp_obj_t b_in){
     const rectangle_class_obj_t* self = MP_OBJ_TO_PTR(self_in);
     const rectangle_class_obj_t* b = MP_OBJ_TO_PTR(b_in);
-    if(b->pos.x + b->size.x < self->pos.x) return mp_const_false;
-    else if(self->pos.x + self->size.x < b->pos.x) return mp_const_false;
-    else if(b->pos.y + b->size.y < self->pos.y) return mp_const_false;
-    else if(self->pos.y + self->size.y < b->pos.y) return mp_const_false;
+    vector2_class_obj_t* apos = MP_OBJ_TO_PTR(self->pos);
+    vector2_class_obj_t* asize = MP_OBJ_TO_PTR(self->size);
+    vector2_class_obj_t* bpos = MP_OBJ_TO_PTR(self->pos);
+    vector2_class_obj_t* bsize = MP_OBJ_TO_PTR(self->size);
+    if(mp_obj_get_float(bpos->x) + mp_obj_get_float(bsize->x) < mp_obj_get_float(apos->x)) return mp_const_false;
+    else if(mp_obj_get_float(apos->x) + mp_obj_get_float(asize->x) < mp_obj_get_float(bpos->x)) return mp_const_false;
+    else if(mp_obj_get_float(bpos->y) + mp_obj_get_float(bsize->y) < mp_obj_get_float(apos->y)) return mp_const_false;
+    else if(mp_obj_get_float(apos->y) + mp_obj_get_float(asize->y) < mp_obj_get_float(bpos->y)) return mp_const_false;
     else return mp_const_true;
 }
 MP_DEFINE_CONST_FUN_OBJ_2(rectangle_class_overlap_test_obj, rectangle_class_overlap_test);
@@ -71,15 +76,15 @@ STATIC void rectangle_class_attr(mp_obj_t self_in, qstr attribute, mp_obj_t *des
 
     if(destination[0] == MP_OBJ_NULL){          // Load
         switch(attribute) {
-            case MP_QSTR_pos: destination[0] = vector2_class_copy(&(self->pos)); break;
-            case MP_QSTR_size: destination[0] = vector2_class_copy(&(self->size)); break;
+            case MP_QSTR_pos: destination[0] = self->pos; break;
+            case MP_QSTR_size: destination[0] = self->size; break;
             case MP_QSTR_area: destination[0] = MP_OBJ_FROM_PTR(&rectangle_class_area_obj); destination[1] = self_in; break;
             default: break;
         }
     }else if(destination[1] != MP_OBJ_NULL){    // Store
         switch(attribute) {
-            case MP_QSTR_pos: self->pos = *((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[1])); break;
-            case MP_QSTR_size: self->size = *((vector2_class_obj_t*)MP_OBJ_TO_PTR(destination[1])); break;
+            case MP_QSTR_pos: self->pos = destination[1]; break;
+            case MP_QSTR_size: self->size = destination[1]; break;
             default: return;
         }
 

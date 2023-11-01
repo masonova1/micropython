@@ -45,6 +45,9 @@ class MyRect2D(Rectangle2DNode):
 a = MySprite()
 b = MyRect2D()
 c = MyNodeCam()
+
+b.rect.size.x = 4
+
 print(b.rect.size.x)
 
 # a.position.x = 0
@@ -54,7 +57,7 @@ print(b.rect.size.x)
 # print(dir(v))
 # print(v, end='')
 
-engine.start()
+#engine.start()
 
 
 # class MyNodeA(EmptyNode):
