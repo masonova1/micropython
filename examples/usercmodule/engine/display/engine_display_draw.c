@@ -112,6 +112,7 @@ void engine_draw_fill_screen_buffer(uint16_t color, uint16_t *screen_buffer){
 
 void engine_draw_blit(uint16_t *pixels, int32_t x, int32_t y, int32_t width, int32_t height, engine_camera_node_class_obj_t *camera){
     uint16_t *screen_buffer = engine_get_active_screen_buffer();
+    const int32_t old_width = width;
     if(camera == NULL){
         if(x < 0) x = 0;
         if(x + width > SCREEN_WIDTH) width = SCREEN_WIDTH - x;
@@ -122,11 +123,13 @@ void engine_draw_blit(uint16_t *pixels, int32_t x, int32_t y, int32_t width, int
             int32_t pos = y*SCREEN_WIDTH + x;
             int32_t p_pos = 0;
             const int32_t width_difference = SCREEN_WIDTH - width;
+            const int32_t p_width_difference = old_width - width;
             for(int y = 0; y < height; y++) {
                 for(int x = 0; x < width; x++) {
                     screen_buffer[pos++] = pixels[p_pos++];
                 }
                 pos += width_difference;
+                p_pos += p_width_difference;
             }
         }else{
             ENGINE_WARNING_PRINTF("Tried to draw zero-size rectangle");
@@ -148,11 +151,13 @@ void engine_draw_blit(uint16_t *pixels, int32_t x, int32_t y, int32_t width, int
             int32_t pos = result_y*SCREEN_WIDTH + result_x;
             int32_t p_pos = 0;
             const int32_t width_difference = SCREEN_WIDTH - width;
+            const int32_t p_width_difference = old_width - width;
             for(int y = 0; y < height; y++) {
                 for(int x = 0; x < width; x++) {
                     screen_buffer[pos++] = pixels[p_pos++];
                 }
                 pos += width_difference;
+                p_pos += p_width_difference;
             }
         }else{
             ENGINE_WARNING_PRINTF("Tried to draw zero-size rectangle");
