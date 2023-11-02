@@ -23,9 +23,12 @@ class MyRect2D(Rectangle2DNode):
         self.width = 5
         self.color = 0b1111100000011111
         self.position.x = 10
+        self.angle = 0
     
     def tick(self):
-        pass
+        self.angle = self.angle + 0.1
+        self.position.x = self.position.x + (5 * math.cos(self.angle))
+        self.position.y = self.position.y + (5 * math.sin(self.angle))
 
 
 test1 = MyRect2D()
