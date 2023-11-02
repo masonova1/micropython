@@ -10,11 +10,16 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-# engine.debug_enable_all()
+engine.debug_enable_all()
 # engine.debug_enable_setting(engine.debug_setting_performance)
 
-test0 = Rectangle2DNode()
-print(test0.width)
+
+
+for i in range(10):
+    test0 = Rectangle2DNode()
+    test0.position.x = test0.position.x + i
+    test0.position.y = test0.position.y + i
+    print(test0.width)
 
 class MyRect2D(Rectangle2DNode):
     def __init__(self):
@@ -44,6 +49,23 @@ class MyNodeCam(CameraNode):
         # print("hi from camera!")
 
 cam = MyNodeCam()
+
+
+class MyNodeC(EmptyNode):
+    def __init__(self):
+        super().__init__(self)
+    
+    def tick(self):
+        pass
+
+if(True):
+    c = MyNodeC()
+    del c
+
+    d = MyRect2D()
+    del d
+
+gc.collect()
 
 engine.start()
 
