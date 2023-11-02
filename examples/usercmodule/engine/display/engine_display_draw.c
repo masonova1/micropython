@@ -57,6 +57,53 @@ void engine_draw_pixel(uint16_t color, int32_t x, int32_t y, engine_camera_node_
     }
 }
 
+void engine_fill_color(uint16_t color, int32_t x, int32_t y, int32_t sx, int32_t sy, engine_camera_node_class_obj_t *camera) {
+    uint16_t *screen_buffer = engine_get_active_screen_buffer();
+    if(camera == NULL){
+        if(x < 0) x = 0;
+        if(x + sx > SCREEN_WIDTH) sx = SCREEN_WIDTH - x;
+        if(y < 0) y = 0;
+        if(y + sy > SCREEN_HEIGHT) sy = SCREEN_HEIGHT - y;
+        if(sx != 0 && sy != 0){
+            //screen_buffer[y*SCREEN_WIDTH + x] = color;
+            int32_t pos = y*SCREEN_WIDTH + x;
+            const int32_t width_difference = SCREEN_WIDTH - sx;
+            for(int y = 0; y < sy; y++) {
+                for(int x = 0; x < sx; x++) {
+                    screen_buffer[pos++] = color;
+                }
+                pos += width_difference;
+            }
+        }else{
+            ENGINE_WARNING_PRINTF("Tried to draw zero-size rectangle");
+        }
+    }else{
+        vector3_class_obj_t *camera_position = camera->position;
+        rectangle_class_obj_t *camera_viewport = camera->viewport;
+        vector2_class_obj_t* pos = MP_OBJ_TO_PTR(camera_viewport->pos);
+        vector2_class_obj_t* size = MP_OBJ_TO_PTR(camera_viewport->size);
+
+        int32_t result_x = ((int32_t)mp_obj_get_float(pos->x)) + (x - (int32_t)mp_obj_get_float(camera_position->x));
+        int32_t result_y = ((int32_t)mp_obj_get_float(pos->y)) + (y - (int32_t)mp_obj_get_float(camera_position->y));
+        if(result_x < (int32_t)mp_obj_get_float(pos->x)) x = mp_obj_get_float(pos->x);
+        if(result_x + sx > (int32_t)mp_obj_get_float(size->x)) sx = (int32_t)mp_obj_get_float(size->x) - result_x;
+        if(result_y < (int32_t)mp_obj_get_float(pos->y)) y = mp_obj_get_float(pos->y);
+        if(result_y + sy > (int32_t)mp_obj_get_float(size->y)) sy = (int32_t)mp_obj_get_float(size->y) - result_y;
+
+        if(sx != 0 && sy != 0){
+            int32_t pos = result_y*SCREEN_WIDTH + result_x;
+            const int32_t width_difference = SCREEN_WIDTH - sx;
+            for(int y = 0; y < sy; y++) {
+                for(int x = 0; x < sx; x++) {
+                    screen_buffer[pos++] = color;
+                }
+                pos += width_difference;
+            }
+        }else{
+            ENGINE_WARNING_PRINTF("Tried to draw zero-size rectangle");
+        }
+    }
+}
 
 void engine_draw_fill_screen_buffer(uint16_t color, uint16_t *screen_buffer){
     memset(screen_buffer, color, SCREEN_BUFFER_SIZE_BYTES);

@@ -74,7 +74,7 @@ print(test.pos)
 # print(dir(v))
 # print(v, end='')
 
-engine.start()
+#engine.start()
 
 
 # class MyNodeA(EmptyNode):
