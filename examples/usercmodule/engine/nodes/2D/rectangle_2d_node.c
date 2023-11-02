@@ -35,6 +35,9 @@ STATIC mp_obj_t rectangle_2d_node_class_draw(mp_obj_t self_in, mp_obj_t camera_o
     mp_int_t width = mp_obj_get_int(mp_load_attr(self->access, MP_QSTR_width));
     mp_int_t height = mp_obj_get_int(mp_load_attr(self->access, MP_QSTR_height));
     mp_int_t color = mp_obj_get_int(mp_load_attr(self->access, MP_QSTR_color));
+    // mp_int_t width = (mp_obj_is_float(self->width)) ? mp_obj_get_float(self->width) : mp_obj_get_int(self->width);
+    // mp_int_t height = (mp_obj_is_float(self->height)) ? mp_obj_get_float(self->height) : mp_obj_get_int(self->height);
+    // mp_int_t color = (mp_obj_is_float(self->color)) ? mp_obj_get_float(self->color) : mp_obj_get_int(self->color);
 
     // Rotation not implemented yet so this is simple!
     // for(mp_int_t y=0; y<height; y++){
