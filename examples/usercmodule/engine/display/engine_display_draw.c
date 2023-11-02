@@ -173,12 +173,12 @@ void engine_draw_blit(uint16_t *pixels, int32_t x, int32_t y, int32_t width, int
         if(result_y < (int32_t)mp_obj_get_float(pos->y)) {
             p_offs = ((int32_t)mp_obj_get_float(pos->y) - result_y) * width;
             height -= (int32_t)mp_obj_get_float(pos->x) - result_x;
-            y = mp_obj_get_float(pos->y);
+            result_y = mp_obj_get_float(pos->y);
         }
         if(result_x < (int32_t)mp_obj_get_float(pos->x)) {
             p_add = (int32_t)mp_obj_get_float(pos->x) - result_x;
             width -= (int32_t)mp_obj_get_float(pos->x) - result_x;
-            x = mp_obj_get_float(pos->x);
+            result_x = mp_obj_get_float(pos->x);
         }
         if(result_x + width > (int32_t)mp_obj_get_float(size->x)) width = (int32_t)mp_obj_get_float(size->x) - result_x;
         if(result_y + height > (int32_t)mp_obj_get_float(size->y)) height = (int32_t)mp_obj_get_float(size->y) - result_y;
