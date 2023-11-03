@@ -146,7 +146,7 @@ void engine_draw_blit(uint16_t *pixels, int32_t x, int32_t y, int32_t width, int
         }
         if(x + width > SCREEN_WIDTH) width = SCREEN_WIDTH - x;
         if(y + height > SCREEN_HEIGHT) height = SCREEN_HEIGHT - y;
-        if(width != 0 && height != 0){
+        if(width > 0 && height > 0){
             //screen_buffer[y*SCREEN_WIDTH + x] = color;
             int32_t pos = y*SCREEN_WIDTH + x;
             int32_t p_pos = 0;
@@ -183,7 +183,7 @@ void engine_draw_blit(uint16_t *pixels, int32_t x, int32_t y, int32_t width, int
         if(result_x + width > (int32_t)mp_obj_get_float(size->x)) width = (int32_t)mp_obj_get_float(size->x) - result_x;
         if(result_y + height > (int32_t)mp_obj_get_float(size->y)) height = (int32_t)mp_obj_get_float(size->y) - result_y;
 
-        if(width != 0 && height != 0){
+        if(width > 0 && height > 0){
             int32_t pos = result_y*SCREEN_WIDTH + result_x;
             int32_t p_pos = 0;
             const int32_t width_difference = SCREEN_WIDTH - width;
