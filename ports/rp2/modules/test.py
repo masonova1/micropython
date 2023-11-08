@@ -14,30 +14,46 @@ engine.debug_enable_all()
 # engine.debug_enable_setting(engine.debug_setting_performance)
 
 
+b = Rectangle2DNode()
 
-for i in range(10):
-    test0 = Rectangle2DNode()
-    test0.position.x = test0.position.x + i
-    test0.position.y = test0.position.y + i
-    print(test0.width)
 
 class MyRect2D(Rectangle2DNode):
     def __init__(self):
         super().__init__(self)
 
-        self.width = 5
         self.color = 0b1111100000011111
-        self.position.x = 10
-        self.angle = 0
     
     def tick(self):
-        self.angle = self.angle + 0.1
-        self.position.x = self.position.x + (5 * math.cos(self.angle))
-        self.position.y = self.position.y + (5 * math.sin(self.angle))
+        print("TEST")
+
+a = MyRect2D()
+print(dir(a))
+print(a)
 
 
-test1 = MyRect2D()
-print(test1.width)
+# for i in range(10):
+#     test0 = Rectangle2DNode()
+#     test0.position.x = test0.position.x + i*2
+#     test0.position.y = test0.position.y + i*2
+#     print(test0.width)
+
+# class MyRect2D(Rectangle2DNode):
+#     def __init__(self):
+#         super().__init__(self)
+
+#         self.width = 5
+#         self.color = 0b1111100000011111
+#         self.position.x = 10
+#         self.angle = 0
+    
+#     def tick(self):
+#         self.angle = self.angle + 0.1
+#         self.position.x = self.position.x + (5 * math.cos(self.angle))
+#         self.position.y = self.position.y + (5 * math.sin(self.angle))
+
+
+# test1 = MyRect2D()
+# print(test1.width)
 
 
 class MyNodeCam(CameraNode):
@@ -51,21 +67,24 @@ class MyNodeCam(CameraNode):
 cam = MyNodeCam()
 
 
-class MyNodeC(EmptyNode):
-    def __init__(self):
-        super().__init__(self)
+# class MyNodeC(EmptyNode):
+#     def __init__(self):
+#         super().__init__(self)
     
-    def tick(self):
-        pass
+#     def tick(self):
+#         pass
 
-if(True):
-    c = MyNodeC()
-    del c
+# if(True):
+#     c = MyNodeC()
+#     del c
 
-    d = MyRect2D()
-    del d
+#     d = MyRect2D()
+#     del d
 
-gc.collect()
+# gc.collect()
+
+
+
 
 engine.start()
 
