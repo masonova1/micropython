@@ -17,18 +17,18 @@ engine.debug_enable_all()
 b = Rectangle2DNode()
 
 
-class MyRect2D(Rectangle2DNode):
-    def __init__(self):
-        super().__init__(self)
+# class MyRect2D(Rectangle2DNode):
+#     def __init__(self):
+#         super().__init__(self)
 
-        self.color = 0b1111100000011111
+#         self.color = 0b1111100000011111
     
-    def tick(self):
-        print("TEST")
+#     def tick(self):
+#         print("TEST")
 
-a = MyRect2D()
-print(dir(a))
-print(a)
+# a = MyRect2D()
+# print(dir(a))
+# print(a)
 
 
 # for i in range(10):
@@ -61,8 +61,7 @@ class MyNodeCam(CameraNode):
         super().__init__(self)
     
     def tick(self):
-        pass
-        # print("hi from camera!")
+        print("hi from camera!")
 
 cam = MyNodeCam()
 
