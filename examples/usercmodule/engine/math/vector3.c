@@ -275,6 +275,8 @@ STATIC mp_obj_t vector3_class_rotate(mp_obj_t self_in, mp_obj_t about_axis, mp_o
   vector3_class_obj_t* axis = MP_OBJ_TO_PTR(about_axis);
   const mp_float_t ax = mp_obj_get_float(axis->x);
   const mp_float_t ay = mp_obj_get_float(axis->y);
+
+  
   const mp_float_t az = mp_obj_get_float(axis->z);
 
   const mp_float_t s = sin(mp_obj_get_float(theta)*0.5);

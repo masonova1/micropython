@@ -4,6 +4,12 @@
 #include "display/engine_display.h"
 #include "engine_cameras.h"
 
+#ifdef __unix__
+    #include "display/engine_display_driver_unix_sdl.h"
+#else
+    #include "display/engine_display_driver_rp2_st7789.h"
+#endif
+
 #include "math/vector2.h"
 #include "math/vector3.h"
 #include "math/rectangle.h"
@@ -28,7 +34,7 @@ STATIC mp_obj_t engine_start(){
         ENGINE_PERFORMANCE_STOP(ENGINE_PERF_TIMER_1, "Loop time");
         ENGINE_PERFORMANCE_START(ENGINE_PERF_TIMER_1);
         engine_invoke_all_node_callbacks();
-        
+
         // After every game cycle send the current active screen buffer to the display
         engine_display_send();
     }
@@ -37,6 +43,22 @@ STATIC mp_obj_t engine_start(){
 }
 MP_DEFINE_CONST_FUN_OBJ_0(engine_start_obj, engine_start);
 
+static mp_obj_t engine_display_init_internal() {
+    engine_display_init();
+}
+MP_DEFINE_CONST_FUN_OBJ_0(engine_display_init_obj, engine_display_init_internal);
+
+static mp_obj_t engine_display_dma_wait_internal() {
+    engine_display_st7789_dmawait();
+}
+MP_DEFINE_CONST_FUN_OBJ_0(engine_display_dma_wait_obj, engine_display_dma_wait_internal);
+
+static mp_obj_t engine_display_push_fb(mp_obj_t fb) {
+    mp_buffer_info_t buf_inf;
+    mp_get_buffer_raise(fb, &buf_inf, MP_BUFFER_WRITE);
+    engine_display_st7789_update((uint16_t*)buf_inf.buf);
+}
+MP_DEFINE_CONST_FUN_OBJ_1(engine_display_push_fb_obj, engine_display_push_fb);
 
 STATIC mp_obj_t engine_debug_disable_all(){
     DEBUG_INFO_ENABLED = false;
@@ -69,7 +91,7 @@ STATIC mp_obj_t engine_enable_debug_setting(mp_obj_t debug_setting){
             DEBUG_INFO_ENABLED = true;
             ENGINE_FORCE_PRINTF("Enabled info debug prints");
         break;
-        case DEBUG_SETTING_WARNINGS: 
+        case DEBUG_SETTING_WARNINGS:
             DEBUG_WARNINGS_ENABLED = true;
             ENGINE_FORCE_PRINTF("Enabled warning debug prints");
         break;
@@ -107,6 +129,9 @@ STATIC const mp_rom_map_elem_t engine_globals_table[] = {
     { MP_OBJ_NEW_QSTR(MP_QSTR_BitmapSpriteNode), (mp_obj_t)&engine_bitmap_sprite_node_class_type },
     { MP_OBJ_NEW_QSTR(MP_QSTR_Rectangle2DNode), (mp_obj_t)&engine_rectangle_2d_node_class_type },
     { MP_OBJ_NEW_QSTR(MP_QSTR_start), (mp_obj_t)&engine_start_obj },
+    { MP_OBJ_NEW_QSTR(MP_QSTR_InitDisplay), (mp_obj_t)&engine_display_init_obj },
+    { MP_OBJ_NEW_QSTR(MP_QSTR_DisplayDMAWait), (mp_obj_t)&engine_display_dma_wait_obj },
+    { MP_OBJ_NEW_QSTR(MP_QSTR_PushFrame), (mp_obj_t)&engine_display_push_fb_obj },
 
     { MP_OBJ_NEW_QSTR(MP_QSTR_debug_enable_all), (mp_obj_t)&engine_debug_enable_all_obj },
     { MP_OBJ_NEW_QSTR(MP_QSTR_debug_disable_all), (mp_obj_t)&engine_debug_disable_all_obj },

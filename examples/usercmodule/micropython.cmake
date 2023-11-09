@@ -4,3 +4,4 @@
 # used to prefix subdirectories.
 
 include(${CMAKE_CURRENT_LIST_DIR}/engine/micropython.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/modraster/micropython.cmake)
