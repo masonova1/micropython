@@ -23,9 +23,6 @@ class MyRect2D(Rectangle2DNode):
         self.color = 0b1111100000011111
         self.position.x = 10
         self.position.y = 10
-
-        a = self.width
-        a = 100
     
     def tick(self):
         print("TEST")
