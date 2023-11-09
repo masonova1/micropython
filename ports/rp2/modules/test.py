@@ -1,10 +1,9 @@
 import engine
-from engine import EmptyNode, CameraNode, BitmapSpriteNode, Rectangle2DNode, Vector3, Rectangle
+from engine import EmptyNode, BitmapSpriteNode, Rectangle2DNode, Vector3, Rectangle
 import gc
 import math
 print("dir(engine):",dir(engine))
 print("dir(EmptyNode):", dir(EmptyNode))
-print("dir(CameraNode):", dir(CameraNode))
 print("dir(BitmapSpriteNode):", dir(BitmapSpriteNode))
 print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
@@ -17,16 +16,21 @@ engine.debug_enable_all()
 b = Rectangle2DNode()
 
 
-# class MyRect2D(Rectangle2DNode):
-#     def __init__(self):
-#         super().__init__(self)
+class MyRect2D(Rectangle2DNode):
+    def __init__(self):
+        super().__init__(self)
 
-#         self.color = 0b1111100000011111
+        self.color = 0b1111100000011111
+        self.position.x = 10
+        self.position.y = 10
+
+        a = self.width
+        a = 100
     
-#     def tick(self):
-#         print("TEST")
+    def tick(self):
+        print("TEST")
 
-# a = MyRect2D()
+a = MyRect2D()
 # print(dir(a))
 # print(a)
 
@@ -55,15 +59,6 @@ b = Rectangle2DNode()
 # test1 = MyRect2D()
 # print(test1.width)
 
-
-class MyNodeCam(CameraNode):
-    def __init__(self):
-        super().__init__(self)
-    
-    def tick(self):
-        print("hi from camera!")
-
-cam = MyNodeCam()
 
 
 # class MyNodeC(EmptyNode):
