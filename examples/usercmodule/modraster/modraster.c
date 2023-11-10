@@ -309,6 +309,7 @@ void drawtriangle_pow2_tex(uint16_t* fb, int f_xs, uint16_t* tex, int t_xs_log2,
     }
 }
 
+// 16-bit tangent, sine table from 0..pi/2.
 const static uint16_t sin_tan_tab[512] = {
     0, 0,
     201, 402,
@@ -655,18 +656,136 @@ void blit_scale_pow2_tex_internal(uint16_t* fb, int f_xs, uint16_t* tex, int t_x
         ty = (t_ys << 16) - 0x8000;
     }
     //printf("dtx=%i, dty=%i\n\r", dtx, dty);
+    //interp_set_config(interp0, 0, &cfg);
     int32_t fb_pos = y * f_xs + x;
     for(int cy = 0; cy < ye; cy++) {
         tx = (xsc < 0) ? ((t_xs << 16) - 0x8000) : 0x8000;
+        interp0->accum[1] = tx;
+        interp0->base[1] = dtx;
+        interp0->accum[0] = ty;
+        interp0->base[0] = 0;
         for(int cx = 0; cx < xe; cx++) {
 
-            fb[fb_pos + cx] = tex[((ty >> 16) << t_xs_log2) + (tx >> 16)];
+            // fb[fb_pos + cx] = tex[((ty >> 16) << t_xs_log2) + (tx >> 16)];
+            // tx += dtx;
 
-            tx += dtx;
+            fb[fb_pos + cx] = tex[interp_pop_full_result(interp0)];
         }
         fb_pos += f_xs;
         ty += dty;
     }
+}
+
+void blit_scale_trishear_pow2_tex_internal(uint16_t* fb, int f_xs, uint16_t* tex, int t_xs_log2, int t_ys, int32_t x, int32_t y, const int32_t xsc, const int32_t ysc, int32_t xsr, int32_t ysr, int32_t xsr2, int flip) {
+    int32_t t_xs = 1u << t_xs_log2;
+    int32_t xe = (t_xs * xsc) >> 16;
+    int32_t ye = (t_ys * ysc) >> 16;
+    int32_t dtx = ((int64_t)t_xs << 16) / xe;
+    int32_t dty = ((int64_t)t_ys << 16) / ye;
+    int32_t ty = 0;
+    int32_t tx = 0;
+
+    if(xsc < 0) {
+        xe = -xe;
+        x -= xe;
+        // dtx = -dtx;
+    }
+    if(ysc < 0) {
+        ye = -ye;
+        y -= ye;
+        ty = (t_ys << 16) - 0x10000;
+        // dty = -dty;
+    }
+
+    int32_t fb_pos = y * f_xs + x;
+    int32_t x_start = ((xsc < 0)) ? ((t_xs << 16) - 0x10000) : 0;
+
+    int32_t xshift = 0;
+    int32_t yshift = 0;
+    int32_t xshift2 = 0;
+    for(int cy = 0; cy < ye; cy++) {
+        yshift = (xshift >> 16) * ysr;
+        tx = x_start;
+        fb_pos += (xshift >> 16);
+        interp0->accum[1] = tx;
+        interp0->base[1] = dtx;
+        interp0->accum[0] = ty;
+        interp0->base[0] = 0;
+        if(flip) for(int cx = 0; cx < xe; cx++) {
+            //printf("tx, ty are %f, %f\n\r", tx/65536.f, ty/65536.f);
+            xshift2 = ((cy + (yshift >> 16)) * xsr2);
+
+            // fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[t_xs * t_ys - 1 - ((ty >> 16) * t_xs + (tx >> 16))];
+            fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[t_xs * t_ys - 1 - interp_pop_full_result(interp0)];
+
+            //tx += dtx;
+            yshift += ysr;
+        }
+        else for(int cx = 0; cx < xe; cx++) {
+            //printf("tx, ty are %f, %f\n\r", tx/65536.f, ty/65536.f);
+            xshift2 = ((cy + (yshift >> 16)) * xsr2);
+
+            // fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[(ty >> 16) * t_xs + (tx >> 16)];
+            fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[interp_pop_full_result(interp0)];
+
+            //tx += dtx;
+            yshift += ysr;
+        }
+        fb_pos -= (xshift >> 16);
+        fb_pos += f_xs;
+        xshift += xsr;
+        ty += dty;
+    }
+}
+
+void blit_scale_rotate_pow2_tex_internal(uint16_t* fb, int f_xs, uint16_t* tex, int t_xs_log2, int t_ys, const int x, const int y, int32_t xsc, int32_t ysc, int16_t theta) {
+    int flip = 0;
+    int32_t t_xs = 1u << t_xs_log2;
+    // Step 1: Get theta inside (-pi/2, pi/2) and flip if we need to
+    theta &= 0x3FF;
+    if(theta > 0x200) theta -= 0x400;
+    if(theta > 0x100) {
+        flip = 1;
+        theta -= 0x200;
+    } else if(theta < -0x100) {
+        flip = 1;
+        theta += 0x200;
+    }
+
+    int negative = 0;
+    if(theta < 0) {
+        negative = 1;
+        theta = -theta;
+    }
+
+    //mp_printf(&mp_plat_print, "Converted theta to %f\n\r", theta * 3.14159265 / 256.f);
+
+    int idx = (theta << 1);
+    //printf("Table index is %i\n\r", idx);
+    int32_t a, b; // tan(theta*0.5), sin(theta)
+    if(idx != 512) {
+        a = (negative) ? sin_tan_tab[idx] : -sin_tan_tab[idx];
+        b = (negative) ? -sin_tan_tab[idx+1] : sin_tan_tab[idx+1];
+    } else {
+        a = (negative) ? 65536 : -65536;
+        b = (negative) ? -65536 : 65536;
+    }
+    int32_t c = (((int64_t)a*b) >> 16) + 0x10000;
+    //printf("tan(0.5t)=%f, sin(t)=%f\n\r", a/65536.f, b/65536.f);
+    //printf("Flip: %i\n\r", flip);
+    // Step 3: Rotate center w.r.t. pivot so we can rotate about the center instead
+    int32_t xe = ((int64_t)t_xs * xsc) >> 16;
+    int32_t ye = ((int64_t)t_ys * ysc) >> 16;
+    // if(xe < 0) xe = -xe;
+    // if(ye < 0) ye = -ye;
+    if(xsc < 0) xe = -xe;
+    if(ysc < 0) ye = -ye;
+    int cx = ((int64_t)(xe/2) * c - (int64_t)(ye/2) * b) >> 16;
+    int cy = ((int64_t)(ye/2) * c + (int64_t)(xe/2) * b) >> 16;
+    if(xsc < 0) cx -= xe;
+    if(ysc < 0) cy -= ye;
+    //Step 4: Triple shear (a, b, a);
+    blit_scale_trishear_pow2_tex_internal(fb, f_xs, tex, t_xs_log2, t_ys, x - cx, y - cy, xsc, ysc, a, b, a, flip);
 }
 
 STATIC mp_obj_t draw_triangle(mp_uint_t n_args, const mp_obj_t* args)
@@ -775,6 +894,31 @@ STATIC mp_obj_t blit_rotate_pow2_tex(mp_uint_t n_args, const mp_obj_t* args)
 }
 MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(blit_rotate_pow2_tex_obj, 9, 9, blit_rotate_pow2_tex);
 
+STATIC mp_obj_t blit_scale_rotate_pow2_tex(mp_uint_t n_args, const mp_obj_t* args)
+{
+    mp_obj_t fb = args[0];
+    mp_buffer_info_t buf_inf;
+    mp_get_buffer_raise(fb, &buf_inf, MP_BUFFER_WRITE);
+    int f_xs = mp_obj_get_int(args[1]);
+    //int f_ys = mp_obj_get_int(args[2]);
+    mp_obj_t tex = args[3];
+    mp_buffer_info_t tex_inf;
+    mp_get_buffer_raise(tex, &tex_inf, MP_BUFFER_READ);
+    int t_xsl2 = mp_obj_get_int(args[4]);
+    int t_ys = mp_obj_get_int(args[5]);
+    const int x = MP_OBJ_SMALL_INT_VALUE(args[6]);
+    const int y = MP_OBJ_SMALL_INT_VALUE(args[7]);
+    const int xsc = MP_OBJ_SMALL_INT_VALUE(args[8]);
+    const int ysc = MP_OBJ_SMALL_INT_VALUE(args[9]);
+    const int theta = MP_OBJ_SMALL_INT_VALUE(args[10]);
+    //mp_printf(&mp_plat_print, "Rastering %i, %i, with (xsr, ysr, xsr2) (%f, %f, %f)", t_xs, t_ys, xsr/65536.f, ysr/65536.f, xsr2/65536.f);
+    init_interp(t_xsl2);
+    blit_scale_rotate_pow2_tex_internal(buf_inf.buf, f_xs, tex_inf.buf, t_xsl2, t_ys, x, y, xsc, ysc, theta);
+    return mp_const_none;
+}
+MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(blit_scale_rotate_pow2_tex_obj, 11, 11, blit_scale_rotate_pow2_tex);
+
+
 STATIC mp_obj_t blit_scale_pow2_tex(mp_uint_t n_args, const mp_obj_t* args)
 {
     mp_obj_t fb = args[0];
@@ -792,7 +936,7 @@ STATIC mp_obj_t blit_scale_pow2_tex(mp_uint_t n_args, const mp_obj_t* args)
     const int xsc = MP_OBJ_SMALL_INT_VALUE(args[8]);
     const int ysc = MP_OBJ_SMALL_INT_VALUE(args[9]);
     //mp_printf(&mp_plat_print, "Rastering %i, %i, with (xsr, ysr, xsr2) (%f, %f, %f)", t_xs, t_ys, xsr/65536.f, ysr/65536.f, xsr2/65536.f);
-    //init_interp(t_xs);
+    init_interp(t_xsl2);
     blit_scale_pow2_tex_internal(buf_inf.buf, f_xs, tex_inf.buf, t_xsl2, t_ys, x, y, xsc, ysc);
     return mp_const_none;
 }
@@ -890,6 +1034,7 @@ STATIC const mp_rom_map_elem_t mp_module_raster_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR_blit_trishear_pow2_tex), MP_ROM_PTR(&blit_trishear_pow2_tex_obj) },
     { MP_ROM_QSTR(MP_QSTR_blit_rotate_pow2_tex), MP_ROM_PTR(&blit_rotate_pow2_tex_obj) },
     { MP_ROM_QSTR(MP_QSTR_blit_scale_pow2_tex), MP_ROM_PTR(&blit_scale_pow2_tex_obj) },
+    { MP_ROM_QSTR(MP_QSTR_blit_scale_rotate_pow2_tex), MP_ROM_PTR(&blit_scale_rotate_pow2_tex_obj) },
 };
 
 STATIC MP_DEFINE_CONST_DICT(mp_module_raster_globals, mp_module_raster_globals_table);
