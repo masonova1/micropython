@@ -1,16 +1,16 @@
 import engine
-from engine import EmptyNode, BitmapSpriteNode, Rectangle2DNode, Vector3, Rectangle
+from engine import EmptyNode, Sprite2DNode, Rectangle2DNode, Vector3, Rectangle
 import gc
 import math
 print("dir(engine):",dir(engine))
 print("dir(EmptyNode):", dir(EmptyNode))
-print("dir(BitmapSpriteNode):", dir(BitmapSpriteNode))
+print("dir(Sprite2DNode):", dir(Sprite2DNode))
 print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-engine.debug_enable_all()
-# engine.debug_enable_setting(engine.debug_setting_performance)
+# engine.debug_enable_all()
+engine.debug_enable_setting(engine.debug_setting_performance)
 
 
 b = Rectangle2DNode()
@@ -28,6 +28,9 @@ class MyRect2D(Rectangle2DNode):
         print("TEST")
 
 a = MyRect2D()
+
+
+
 # print(dir(a))
 # print(a)
 
