@@ -38,7 +38,9 @@
         "pico.h": "c",
         "engine_display_common.h": "c",
         "array": "c",
-        "machine_spi.h": "c"
+        "machine_spi.h": "c",
+        "engine_object_layers.h": "c",
+        "linked_list.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }

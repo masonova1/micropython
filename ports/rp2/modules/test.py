@@ -1,5 +1,8 @@
 import engine
-from engine import EmptyNode, Sprite2DNode, Rectangle2DNode, Vector3, Rectangle
+import engine_draw
+import engine_debug
+from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode
+from engine_math import Vector3, Rectangle
 import gc
 import math
 print("dir(engine):",dir(engine))
@@ -9,23 +12,30 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-# engine.debug_enable_all()
-engine.debug_enable_setting(engine.debug_setting_performance)
+# engine_debug.debug_enable_all()
+engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 
 b = Rectangle2DNode()
-
+b.height = 100
+b.position.x = b.position.x + 10.5
+b.position.y = b.position.y + 20.5
+b.color = 0b0000011101100001
 
 class MyRect2D(Rectangle2DNode):
     def __init__(self):
         super().__init__(self)
 
         self.color = 0b1111100000011111
-        self.position.x = 10
-        self.position.y = 10
+
+        self.angle = 0
     
     def tick(self):
         print("TEST")
+        self.width = 100
+        self.angle = self.angle + 0.1
+        self.position.x = 64 + (25 * math.cos(self.angle))
+        self.position.y = 64 + (25 * math.sin(self.angle))
 
 a = MyRect2D()
 
