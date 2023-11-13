@@ -1,7 +1,7 @@
 import engine
 import engine_draw
 import engine_debug
-from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode
+from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, CameraNode
 from engine_math import Vector3, Rectangle
 import gc
 import math
@@ -13,7 +13,42 @@ print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
 # engine_debug.debug_enable_all()
-engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
+# engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
+
+
+class MyNodeCam(CameraNode):
+    def __init__(self):
+        super().__init__(self)
+    
+    def tick(self):
+        pass
+
+cam0 = MyNodeCam()
+cam1 = MyNodeCam()
+cam2 = MyNodeCam()
+cam3 = MyNodeCam()
+
+
+cam0.viewport.x=0
+cam0.viewport.y=0
+cam0.viewport.width=64
+cam0.viewport.height=64
+
+cam1.viewport.x=64
+cam1.viewport.y=0
+cam1.viewport.width=64
+cam1.viewport.height=64
+
+cam2.viewport.x=0
+cam2.viewport.y=64
+cam2.viewport.width=64
+cam2.viewport.height=64
+
+cam3.viewport.x=64
+cam3.viewport.y=64
+cam3.viewport.width=64
+cam3.viewport.height=64
+
 
 
 b = Rectangle2DNode()
@@ -38,6 +73,9 @@ class MyRect2D(Rectangle2DNode):
         self.position.y = 64 + (25 * math.sin(self.angle))
 
 a = MyRect2D()
+
+
+engine.start()
 
 
 
@@ -87,10 +125,6 @@ a = MyRect2D()
 
 # gc.collect()
 
-
-
-
-engine.start()
 
 # # class MySprite(BitmapSpriteNode):
 # #     def __init__(self):
@@ -158,13 +192,7 @@ engine.start()
 #         pass
 #         # print("hi from tick() D")
 
-# class MyNodeCam(CameraNode):
-#     def __init__(self):
-#         super().__init__(self)
-    
-#     def tick(self):
-#         pass
-#         # print("hi from camera!")
+
 
 # class MySprite(BitmapSpriteNode):
 #     def __init__(self):
@@ -213,31 +241,6 @@ engine.start()
 # print(v, end='')
 
 
-# cam0 = MyNodeCam()
-# cam1 = MyNodeCam()
-# cam2 = MyNodeCam()
-# cam3 = MyNodeCam()
-
-
-# cam0.viewport.x=0
-# cam0.viewport.y=0
-# cam0.viewport.width=64
-# cam0.viewport.height=64
-
-# cam1.viewport.x=64
-# cam1.viewport.y=0
-# cam1.viewport.width=64
-# cam1.viewport.height=64
-
-# cam2.viewport.x=0
-# cam2.viewport.y=64
-# cam2.viewport.width=64
-# cam2.viewport.height=64
-
-# cam3.viewport.x=64
-# cam3.viewport.y=64
-# cam3.viewport.width=64
-# cam3.viewport.height=64
 
 # spr = MySprite()
 
