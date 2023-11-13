@@ -5,3 +5,4 @@
 
 include(${CMAKE_CURRENT_LIST_DIR}/engine/micropython.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/modraster/micropython.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/modbox2d/micropython.cmake)

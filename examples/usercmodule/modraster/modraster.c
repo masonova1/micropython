@@ -118,8 +118,7 @@ void scanlineuv_pow2_tex(uint16_t* fb, int f_xs, uint16_t* tex, int t_xs_log2, i
     }
 }
 
-STATIC mp_obj_t scanline_uv(mp_uint_t n_args, const mp_obj_t* args)
-{
+STATIC mp_obj_t scanline_uv(mp_uint_t n_args, const mp_obj_t* args) {
     mp_obj_t fb = args[0];
     mp_buffer_info_t buf_inf;
     mp_get_buffer_raise(fb, &buf_inf, MP_BUFFER_WRITE);
@@ -715,7 +714,7 @@ void blit_scale_trishear_pow2_tex_internal(uint16_t* fb, int f_xs, uint16_t* tex
             //printf("tx, ty are %f, %f\n\r", tx/65536.f, ty/65536.f);
             xshift2 = ((cy + (yshift >> 16)) * xsr2);
 
-            // fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[t_xs * t_ys - 1 - ((ty >> 16) * t_xs + (tx >> 16))];
+            //fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[t_xs * t_ys - 1 - ((ty >> 16) * t_xs + (tx >> 16))];
             fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[t_xs * t_ys - 1 - interp_pop_full_result(interp0)];
 
             //tx += dtx;
@@ -725,7 +724,7 @@ void blit_scale_trishear_pow2_tex_internal(uint16_t* fb, int f_xs, uint16_t* tex
             //printf("tx, ty are %f, %f\n\r", tx/65536.f, ty/65536.f);
             xshift2 = ((cy + (yshift >> 16)) * xsr2);
 
-            // fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[(ty >> 16) * t_xs + (tx >> 16)];
+            //fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[(ty >> 16) * t_xs + (tx >> 16)];
             fb[fb_pos + (cx) + (yshift >> 16) * f_xs + (xshift2 >> 16)] = tex[interp_pop_full_result(interp0)];
 
             //tx += dtx;
