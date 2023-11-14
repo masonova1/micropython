@@ -41,7 +41,8 @@
         "machine_spi.h": "c",
         "engine_object_layers.h": "c",
         "linked_list.h": "c",
-        "engine_input_sdl.h": "c"
+        "engine_input_sdl.h": "c",
+        "engine_input_common.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
