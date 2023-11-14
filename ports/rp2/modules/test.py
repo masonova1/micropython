@@ -33,20 +33,20 @@ class MyNodeCam(CameraNode):
             self.position.y = self.position.y + 1
 
 cam0 = MyNodeCam()
-# cam1 = MyNodeCam()
+cam1 = CameraNode()
 # cam2 = MyNodeCam()
 # cam3 = MyNodeCam()
 
 
-# cam0.viewport.x=0
-# cam0.viewport.y=0
-# cam0.viewport.width=64
-# cam0.viewport.height=64
+cam0.viewport.x=0
+cam0.viewport.y=0
+cam0.viewport.width=128
+cam0.viewport.height=64
 
-# cam1.viewport.x=64
-# cam1.viewport.y=0
-# cam1.viewport.width=64
-# cam1.viewport.height=64
+cam1.viewport.x=0
+cam1.viewport.y=64
+cam1.viewport.width=128
+cam1.viewport.height=64
 
 # cam2.viewport.x=0
 # cam2.viewport.y=64
