@@ -1,6 +1,7 @@
 import engine
 import engine_draw
 import engine_debug
+import engine_input
 from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, CameraNode
 from engine_math import Vector3, Rectangle
 import gc
@@ -21,7 +22,15 @@ class MyNodeCam(CameraNode):
         super().__init__(self)
     
     def tick(self):
-        pass
+        if engine_input.is_dpad_left_pressed():
+            self.position.x = self.position.x - 1
+        elif engine_input.is_dpad_right_pressed():
+            self.position.x = self.position.x + 1
+        
+        if engine_input.is_dpad_up_pressed():
+            self.position.y = self.position.y - 1
+        elif engine_input.is_dpad_down_pressed():
+            self.position.y = self.position.y + 1
 
 cam0 = MyNodeCam()
 # cam1 = MyNodeCam()
