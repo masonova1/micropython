@@ -6,12 +6,15 @@ from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, CameraNode
 from engine_math import Vector3, Rectangle
 import gc
 import math
+# import machine
 print("dir(engine):",dir(engine))
 print("dir(EmptyNode):", dir(EmptyNode))
 print("dir(Sprite2DNode):", dir(Sprite2DNode))
 print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
+
+# machine.freq(250 * 1000 * 1000)
 
 # engine_debug.debug_enable_all()
 engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
@@ -66,6 +69,7 @@ b.position.x = b.position.x + 10.5
 b.position.y = b.position.y + 20.5
 b.color = 0b0000011101100001
 
+
 class MyRect2D(Rectangle2DNode):
     def __init__(self):
         super().__init__(self)
@@ -73,13 +77,21 @@ class MyRect2D(Rectangle2DNode):
         self.color = 0b1111100000011111
 
         self.angle = 0
+
+        self.center_x = 64
+        self.center_y = 64
     
     def tick(self):
         print("TEST")
-        self.width = 100
-        self.angle = self.angle + 0.1
-        self.position.x = 64 + (25 * math.cos(self.angle))
-        self.position.y = 64 + (25 * math.sin(self.angle))
+        self.width = 50
+        self.angle = self.angle + 0.01
+        self.position.x = self.center_x  + (25 * math.cos(self.angle))
+        self.position.y = self.center_y + (25 * math.sin(self.angle))
+
+        if engine_input.is_bumper_left_pressed():
+            self.center_x  = self.center_x - 1
+        elif engine_input.is_bumper_right_pressed():
+            self.center_x  = self.center_x + 1
 
 a = MyRect2D()
 
