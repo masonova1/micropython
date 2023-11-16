@@ -42,7 +42,9 @@
         "engine_object_layers.h": "c",
         "linked_list.h": "c",
         "engine_input_sdl.h": "c",
-        "engine_input_common.h": "c"
+        "engine_input_common.h": "c",
+        "stb_image.h": "c",
+        "initializer_list": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
