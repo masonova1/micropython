@@ -23,7 +23,28 @@ engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 engine_debug.debug_enable_all()
 resource = TextureResource("box.png")
-print(resource.data)
+
+class MySpr(Sprite2DNode):
+    def __init__(self):
+        super().__init__(self, resource)
+
+class MyNodeCam(CameraNode):
+    def __init__(self):
+        super().__init__(self)
+
+s0 = Sprite2DNode(resource)
+s1 = MySpr()
+
+c0 = MyNodeCam()
+
+
+engine.start()
+
+
+
+
+
+# print(resource.data)
 
 
 # # machine.freq(250 * 1000 * 1000)
