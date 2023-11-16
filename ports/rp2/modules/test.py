@@ -16,6 +16,10 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
+# machine.freq(250 * 1000 * 1000)
+
+# engine_debug.debug_enable_all()
+engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 engine_debug.debug_enable_all()
 resource = TextureResource("box.png")
@@ -32,32 +36,8 @@ print(resource.data)
 #     def __init__(self):
 #         super().__init__(self)
     
-#     def tick(self):
-#         if engine_input.is_dpad_left_pressed():
-#             self.position.x = self.position.x - 1
-#         elif engine_input.is_dpad_right_pressed():
-#             self.position.x = self.position.x + 1
-        
-#         if engine_input.is_dpad_up_pressed():
-#             self.position.y = self.position.y - 1
-#         elif engine_input.is_dpad_down_pressed():
-#             self.position.y = self.position.y + 1
-
-# cam0 = MyNodeCam()
-# cam1 = CameraNode()
 # cam2 = MyNodeCam()
 # cam3 = MyNodeCam()
-
-
-# cam0.viewport.x=0
-# cam0.viewport.y=0
-# cam0.viewport.width=64
-# cam0.viewport.height=64
-
-# cam1.viewport.x=64
-# cam1.viewport.y=0
-# cam1.viewport.width=64
-# cam1.viewport.height=64
 
 # cam2.viewport.x=0
 # cam2.viewport.y=64
@@ -77,39 +57,9 @@ print(resource.data)
 # b.position.y = b.position.y + 20.5
 # b.color = 0b0000011101100001
 
-
 # class MyRect2D(Rectangle2DNode):
 #     def __init__(self):
 #         super().__init__(self)
-
-#         self.color = 0b1111100000011111
-
-#         self.angle = 0
-
-#         self.center_x = 64
-#         self.center_y = 64
-    
-#     def tick(self):
-#         print("TEST")
-#         self.width = 50
-#         self.angle = self.angle + 0.01
-#         self.position.x = self.center_x  + (25 * math.cos(self.angle))
-#         self.position.y = self.center_y + (25 * math.sin(self.angle))
-
-#         if engine_input.is_bumper_left_pressed():
-#             self.center_x  = self.center_x - 1
-#         elif engine_input.is_bumper_right_pressed():
-#             self.center_x  = self.center_x + 1
-
-# a = MyRect2D()
-
-# engine.start()
-
-
-
-
-
-
 
 
 
