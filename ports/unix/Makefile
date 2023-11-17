@@ -93,6 +93,7 @@ CC = clang -m32
 else
 CC = clang
 endif
+
 # Use clang syntax for map file
 LDFLAGS_ARCH = -Wl,-map,$@.map -Wl,-dead_strip
 else
