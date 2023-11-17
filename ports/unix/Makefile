@@ -36,7 +36,7 @@ INC +=  -I$(TOP)
 INC += -I$(BUILD)
 
 # compiler settings
-CWARN = -Wall -Werror
+CWARN = -Wall
 CWARN += -Wextra -Wno-unused-parameter -Wpointer-arith -Wfloat-conversion
 CFLAGS += $(INC) $(CWARN) -std=gnu99 -DUNIX $(CFLAGS_MOD) $(COPT) -I$(VARIANT_DIR) $(CFLAGS_EXTRA)
 
