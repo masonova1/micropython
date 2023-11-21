@@ -45,7 +45,9 @@
         "engine_input_common.h": "c",
         "stb_image.h": "c",
         "initializer_list": "c",
-        "vector2.h": "c"
+        "vector2.h": "c",
+        "physac.h": "c",
+        "engine_time.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
