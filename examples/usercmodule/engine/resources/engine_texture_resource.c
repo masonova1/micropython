@@ -92,7 +92,7 @@ mp_obj_t texture_resource_class_new(const mp_obj_type_t *type, size_t n_args, si
     int color_component_count;  // RGB (3), RGBA (4), https://github.com/nothings/stb/blob/03f50e343d796e492e6579a11143a085429d7f5d/stb_image.h#L374-L382
 
     ENGINE_INFO_PRINTF("Loading image data...");
-    self->texture_data = stbi_load_from_callbacks(&stb_custom_callbacks, &stb_file_wrapper.file, &width, &height, &color_component_count, 3);
+    self->texture_data = stbi_load_16_from_callbacks(&stb_custom_callbacks, &stb_file_wrapper.file, &width, &height, &color_component_count, 1);
 
     if(self->texture_data){
         self->width = mp_obj_new_int(width);
@@ -107,36 +107,36 @@ mp_obj_t texture_resource_class_new(const mp_obj_type_t *type, size_t n_args, si
         ENGINE_INFO_PRINTF("\tcomponents: \t%d \t[number of color channels]", color_component_count);
 
         ENGINE_INFO_PRINTF("Loaded/in ram (C HEAP) image parameters ('%s'):", filename);
-        ENGINE_INFO_PRINTF("\tin ram size: \t%lu \t[bytes (number_of_pixels(%lu) * desired_color_channels_per_pixel(%d))]", width*height*3, width*height, 3);
+        ENGINE_INFO_PRINTF("\tin ram size: \t%lu \t[bytes (number_of_pixels(%lu) * desired_color_channels_per_pixel(%d))]", width*height*2, width*height, 1);
         ENGINE_INFO_PRINTF("\twidth: \t\t%d \t[pixels]", width);
         ENGINE_INFO_PRINTF("\theight: \t%d \t[pixels]", height);
-        ENGINE_INFO_PRINTF("\tcomponents: \t%d \t[desired number of color channels]", 3);
+        ENGINE_INFO_PRINTF("\tcomponents: \t%d \t[desired number of color channels]", 1);
 
         ENGINE_INFO_PRINTF("...Converting loaded iamge data from 3 bytes per color pixel to uint16_t 2 bytes per pixel...");
 
         uint16_t *data = (uint16_t*)self->texture_data;
 
-        for(int y_scan_line=0; y_scan_line<height; y_scan_line++){
-            for(int x_pixel=0; x_pixel<width; x_pixel++){
-                uint32_t index_pixel = (y_scan_line * width + x_pixel);
-                uint32_t index_three_channel = index_pixel*3;
-
-                // Get MSB of color channels
-                uint16_t r = (self->texture_data[index_three_channel]   & 0b0000000011111000) >> 3;  // 5
-                uint16_t g = (self->texture_data[index_three_channel+1] & 0b0000000011111100) >> 2;  // 6
-                uint16_t b = (self->texture_data[index_three_channel+2] & 0b0000000011111000) >> 3;  // 5
-
-                uint16_t pixel = 0b0000000000000000;
-                pixel = pixel | (r << 11);
-                pixel = pixel | (g << 5);
-                pixel = pixel | (b << 0);
-
-                data[index_pixel] = pixel;
-            }
-        }
+        // for(int y_scan_line=0; y_scan_line<height; y_scan_line++){
+        //     for(int x_pixel=0; x_pixel<width; x_pixel++){
+        //         uint32_t index_pixel = (y_scan_line * width + x_pixel);
+        //         // uint32_t index_three_channel = index_pixel*1;
+        //
+        //         // Get MSB of color channels
+        //         // uint16_t r = (self->texture_data[index_three_channel]   & 0b0000000011111000) >> 3;  // 5
+        //         // uint16_t g = (self->texture_data[index_three_channel+1] & 0b0000000011111100) >> 2;  // 6
+        //         // uint16_t b = (self->texture_data[index_three_channel+2] & 0b0000000011111000) >> 3;  // 5
+        //         //
+        //         // uint16_t pixel = 0b0000000000000000;
+        //         // pixel = pixel | (r << 11);
+        //         // pixel = pixel | (g << 5);
+        //         // pixel = pixel | (b << 0);
+        //
+        //         data[index_pixel] = self->texture_data[index_pixel];
+        //     }
+        // }
 
         ENGINE_INFO_PRINTF("Converted image data to RGB565, reallocating to smaller size of %lu bytes (C HEAP) (number_of_pixels*2)", width*height*2);
-        self->texture_data = realloc(self->texture_data, width*height*2);
+        //self->texture_data = realloc(self->texture_data, width*height*2);
 
         if(self->texture_data != NULL){
             ENGINE_INFO_PRINTF("Realloc of image data successful!");

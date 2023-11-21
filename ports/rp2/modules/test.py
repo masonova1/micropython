@@ -22,7 +22,7 @@ print("dir(Rectangle):", dir(Rectangle))
 engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 engine_debug.debug_enable_all()
-resource = TextureResource("box.png")
+resource = TextureResource("box2.png")
 
 class MySpr(Sprite2DNode):
     def __init__(self):
