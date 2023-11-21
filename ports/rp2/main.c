@@ -57,7 +57,7 @@
 #if MICROPY_PY_LWIP
 #define MICROPY_GC_HEAP_SIZE 100 * 1024
 #else
-#define MICROPY_GC_HEAP_SIZE 100 * 1024
+#define MICROPY_GC_HEAP_SIZE 80 * 1024
 #endif
 #endif
 

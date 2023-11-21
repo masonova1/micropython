@@ -44,7 +44,8 @@
         "engine_input_sdl.h": "c",
         "engine_input_common.h": "c",
         "stb_image.h": "c",
-        "initializer_list": "c"
+        "initializer_list": "c",
+        "vector2.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }

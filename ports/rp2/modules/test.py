@@ -2,7 +2,8 @@ import engine
 import engine_draw
 import engine_debug
 import engine_input
-from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, CameraNode
+import engine_physics
+from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, CameraNode, Physics2DNode
 from engine_math import Vector3, Rectangle
 from engine_resources import TextureResource
 import gc
@@ -36,6 +37,8 @@ s0 = Sprite2DNode(resource)
 s1 = MySpr()
 
 c0 = MyNodeCam()
+
+p = Physics2DNode()
 
 
 engine.start()
