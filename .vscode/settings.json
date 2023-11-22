@@ -48,7 +48,8 @@
         "vector2.h": "c",
         "physac.h": "c",
         "engine_time.h": "c",
-        "engine_physics.h": "c"
+        "engine_physics.h": "c",
+        "modrp2.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
