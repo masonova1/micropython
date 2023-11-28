@@ -4,7 +4,7 @@ import engine_debug
 import engine_input
 import engine_physics
 from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, CameraNode, Physics2DNode
-from engine_math import Vector3, Rectangle
+from engine_math import Vector3, Vector2, Rectangle
 from engine_resources import TextureResource
 import gc
 import math
@@ -16,6 +16,8 @@ print("dir(Sprite2DNode):", dir(Sprite2DNode))
 print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
+
+
 
 # machine.freq(250 * 1000 * 1000)
 
