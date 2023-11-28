@@ -22,24 +22,36 @@ print("dir(Rectangle):", dir(Rectangle))
 # engine_debug.debug_enable_all()
 engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
-engine_debug.debug_enable_all()
+# engine_debug.debug_enable_all()
 resource = TextureResource("box.png")
 
-class MySpr(Sprite2DNode):
-    def __init__(self):
-        super().__init__(self, resource)
+# class MySpr(Sprite2DNode):
+#     def __init__(self):
+#         super().__init__(self, resource)
 
 class MyNodeCam(CameraNode):
     def __init__(self):
         super().__init__(self)
 
-s0 = Sprite2DNode(resource)
-s1 = MySpr()
+# s0 = Sprite2DNode(resource)
+# s1 = MySpr()
 
 c0 = MyNodeCam()
 
 p = Physics2DNode()
+r = Rectangle2DNode()
+r.position.x = 50
+r.position.y = 30
+# r.rotation = 90
+p.add_child(r)
 
+p1 = Physics2DNode()
+r1 = Rectangle2DNode()
+r1.position.x = 50
+r1.position.y = 60
+# r1.rotation = 0
+p1.add_child(r1)
+p1.dynamic = False
 
 engine.start()
 
