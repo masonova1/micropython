@@ -22,7 +22,7 @@ print("dir(Rectangle):", dir(Rectangle))
 # machine.freq(250 * 1000 * 1000)
 
 # engine_debug.debug_enable_all()
-engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
+# engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 # engine_debug.debug_enable_all()
 resource = TextureResource("box.png")
@@ -35,21 +35,26 @@ class MyNodeCam(CameraNode):
     def __init__(self):
         super().__init__(self)
 
+    def tick(self):
+        if engine_input.is_dpad_left_pressed():
+            self.rotation.z += 1
+
 # s0 = Sprite2DNode(resource)
 # s1 = MySpr()
 
 c0 = MyNodeCam()
+c0.rotation.z = 45
 
 p = Physics2DNode()
 # r = Rectangle2DNode()
 p.position.x = 50
-p.position.y = 30
+p.position.y = 20
 # p.add_child(r)
 
 p1 = Physics2DNode()
 # r1 = Rectangle2DNode()
 p1.position.x = 50
-p1.position.y = 60
+p1.position.y = 90
 # p1.add_child(r1)
 p1.dynamic = False
 
