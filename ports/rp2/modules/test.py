@@ -41,18 +41,16 @@ class MyNodeCam(CameraNode):
 c0 = MyNodeCam()
 
 p = Physics2DNode()
-r = Rectangle2DNode()
-r.position.x = 50
-r.position.y = 30
-# r.rotation = 90
-p.add_child(r)
+# r = Rectangle2DNode()
+p.position.x = 50
+p.position.y = 30
+# p.add_child(r)
 
 p1 = Physics2DNode()
-r1 = Rectangle2DNode()
-r1.position.x = 50
-r1.position.y = 60
-# r1.rotation = 0
-p1.add_child(r1)
+# r1 = Rectangle2DNode()
+p1.position.x = 50
+p1.position.y = 60
+# p1.add_child(r1)
 p1.dynamic = False
 
 engine.start()
