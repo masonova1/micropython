@@ -50,7 +50,8 @@
         "engine_time.h": "c",
         "engine_physics.h": "c",
         "modrp2.h": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "chipmunk.h": "c"
     },
     "dotnet.defaultSolution": "disable"
 }

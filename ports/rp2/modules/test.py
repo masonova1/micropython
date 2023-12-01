@@ -25,52 +25,52 @@ print("dir(Rectangle):", dir(Rectangle))
 engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 # engine_debug.debug_enable_all()
-resource = TextureResource("box.png")
+# resource = TextureResource("box.png")
 
 # class MySpr(Sprite2DNode):
 #     def __init__(self):
 #         super().__init__(self, resource)
 
-class MyNodeCam(CameraNode):
-    def __init__(self):
-        super().__init__(self)
+# class MyNodeCam(CameraNode):
+#     def __init__(self):
+#         super().__init__(self)
 
-    def tick(self):
-        if engine_input.is_bumper_left_pressed():
-            self.rotation.z += 1
-        if engine_input.is_bumper_right_pressed():
-            self.rotation.z -= 1
+#     def tick(self):
+#         if engine_input.is_bumper_left_pressed():
+#             self.rotation.z += 1
+#         if engine_input.is_bumper_right_pressed():
+#             self.rotation.z -= 1
 
-        if engine_input.is_dpad_down_pressed():
-            self.position.y += 1
-        if engine_input.is_dpad_up_pressed():
-            self.position.y -= 1
+#         if engine_input.is_dpad_down_pressed():
+#             self.position.y += 1
+#         if engine_input.is_dpad_up_pressed():
+#             self.position.y -= 1
 
 # s0 = Sprite2DNode(resource)
 # s1 = MySpr()
 
-c0 = MyNodeCam()
-c0.rotation.z = 45
+# c0 = MyNodeCam()
+# c0.rotation.z = 45
 
-p = Physics2DNode()
-# r = Rectangle2DNode()
-p.position.x = 50
-p.position.y = 20
-# p.add_child(r)
+# p = Physics2DNode()
+# # r = Rectangle2DNode()
+# p.position.x = 50
+# p.position.y = 20
+# # p.add_child(r)
 
-p1 = Physics2DNode()
-# r1 = Rectangle2DNode()
-p1.position.x = 50
-p1.position.y = 90
-# p1.add_child(r1)
-p1.dynamic = False
+# p1 = Physics2DNode()
+# # r1 = Rectangle2DNode()
+# p1.position.x = 50
+# p1.position.y = 90
+# # p1.add_child(r1)
+# p1.dynamic = False
 
-nodes = []
-for i in range(15):
-    node = Physics2DNode()
-    node.position.x = i*20
-    node.position.y = 10
-    nodes.append(node)
+# nodes = []
+# for i in range(15):
+#     node = Physics2DNode()
+#     node.position.x = i*20
+#     node.position.y = 10
+#     nodes.append(node)
 
 engine.start()
 
