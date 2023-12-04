@@ -10,7 +10,6 @@ from engine_resources import TextureResource
 import gc
 import math
 import os
-# import machine
 print("dir(engine):",dir(engine))
 print("dir(EmptyNode):", dir(EmptyNode))
 print("dir(Sprite2DNode):", dir(Sprite2DNode))
@@ -18,21 +17,11 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-
-
-# machine.freq(250 * 1000 * 1000)
-
 # engine_debug.debug_enable_all()
 engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 
 
-# engine_debug.debug_enable_all()
-# resource = TextureResource("box.png")
-
-# class MySpr(Sprite2DNode):
-#     def __init__(self):
-#         super().__init__(self, resource)
 
 class MyNodeCam(CameraNode):
     def __init__(self):
@@ -40,45 +29,41 @@ class MyNodeCam(CameraNode):
 
     def tick(self):
         if engine_input.is_bumper_left_pressed():
-            self.rotation.z += 1
+            self.rotation.z += 0.1
         if engine_input.is_bumper_right_pressed():
-            self.rotation.z -= 1
+            self.rotation.z -= 0.1
 
-        if engine_input.is_dpad_down_pressed():
-            self.position.y += 1
         if engine_input.is_dpad_up_pressed():
-            self.position.y -= 1
+            self.position.y -= 0.5
+        if engine_input.is_dpad_down_pressed():
+            self.position.y += 0.5
 
-class MyPhys(Physics2DNode):
-    def __init__(self):
-        super().__init__(self)
+        if engine_input.is_dpad_left_pressed():
+            self.position.x -= 0.5
+        if engine_input.is_dpad_right_pressed():
+            self.position.x += 0.5
 
-    def tick(self):
-        print(self.position.x, self.position.y)
+c = MyNodeCam()
 
-# s0 = Sprite2DNode(resource)
-# s1 = MySpr()
 
-c0 = MyNodeCam()
-# c0.rotation.z = 45
+r0 = Rectangle2DNode()
+r0.position.x = 128/2
+r0.position.y = 128/2
+r0.width = 25
+r0.height = 10
+r0.rotation = 45
 
-p = MyPhys()
-p.position.x = 50
-p.position.y = 20
+r1 = Rectangle2DNode()
+r1.position.x = 128/2
+r1.position.y = 0
+r1.width = 25
+r1.height = 10
 
-# p1 = Physics2DNode()
-# # r1 = Rectangle2DNode()
-# p1.position.x = 50
-# p1.position.y = 90
-# # p1.add_child(r1)
-# p1.dynamic = False
-
-nodes = []
-for i in range(15):
-    node = MyPhys()
-    node.position.x = i*20
-    node.position.y = 10
-    nodes.append(node)
+r2 = Rectangle2DNode()
+r2.position.x = 128/2
+r2.position.y = 127
+r2.width = 25
+r2.height = 10
 
 engine.start()
 
