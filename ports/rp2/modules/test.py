@@ -28,10 +28,10 @@ class MyNodeCam(CameraNode):
         super().__init__(self)
 
     def tick(self):
-        if engine_input.is_bumper_left_pressed():
+        if True:
             self.rotation.z += 0.1
-        if engine_input.is_bumper_right_pressed():
-            self.rotation.z -= 0.1
+        #if engine_input.is_bumper_right_pressed():
+        #    self.rotation.z -= 0.1
 
         if engine_input.is_dpad_up_pressed():
             self.position.y -= 0.5
@@ -65,7 +65,13 @@ r2.position.y = 127
 r2.width = 25
 r2.height = 10
 
-engine.start()
+n1 = Physics2DNode()
+n2 = Physics2DNode()
+
+print(dir(n1))
+n1.test(n2)
+
+#engine.start()
 
 
 
