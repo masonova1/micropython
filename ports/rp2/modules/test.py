@@ -4,7 +4,7 @@ import engine_debug
 import engine_input
 import engine_physics
 from engine_physics import PhysicsShapeRectangle
-from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, CameraNode, Physics2DNode
+from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, Circle2DNode, CameraNode, Physics2DNode
 from engine_math import Vector3, Vector2, Rectangle
 from engine_resources import TextureResource
 import gc
@@ -17,7 +17,7 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-engine_debug.debug_enable_all()
+# engine_debug.debug_enable_all()
 # engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 
@@ -51,20 +51,7 @@ class MyRect(Rectangle2DNode):
         super().__init__(self)
     
     def tick(self):
-        if engine_input.is_bumper_left_pressed():
-            self.rotation -= 0.35
-        if engine_input.is_bumper_right_pressed():
-            self.rotation += 0.35
-
-        if engine_input.is_dpad_up_pressed():
-            self.position.y -= 1
-        if engine_input.is_dpad_down_pressed():
-            self.position.y += 1
-
-        if engine_input.is_dpad_left_pressed():
-            self.position.x -= 1
-        if engine_input.is_dpad_right_pressed():
-            self.position.x += 1
+        self.rotation -= 0.15
 
 
 c = MyNodeCam()
@@ -78,9 +65,10 @@ r0.height = 10
 r0.rotation = 0
 r0.color = 0b1111100000011111
 
+
 r1 = Rectangle2DNode()
 r1.position.x = 0
-r1.position.y = 15
+r1.position.y = 30
 r1.width = 25
 r1.height = 10
 r1.color = 0b1111100000000000
@@ -88,11 +76,26 @@ r0.add_child(r1)
 
 r2 = Rectangle2DNode()
 r2.position.x = 0
-r2.position.y = 15
+r2.position.y = 30
 r2.width = 25
 r2.height = 10
 r2.color = 0b0000000000011111
 r1.add_child(r2)
+
+
+circle0 = Circle2DNode()
+circle0.position.x = 0
+circle0.position.y = -30
+circle0.radius = 8
+circle0.color = 0b0000011111100000
+r0.add_child(circle0)
+
+circle1 = Circle2DNode()
+circle1.position.x = 0
+circle1.position.y = -30
+circle1.radius = 8
+circle1.color = 0b1110001011011001
+circle0.add_child(circle1)
 
 engine.start()
 
