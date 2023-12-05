@@ -79,16 +79,16 @@ r0.rotation = 0
 r0.color = 0b1111100000011111
 
 r1 = Rectangle2DNode()
-r1.position.x = 128/2
-r1.position.y = 128/4
+r1.position.x = 0
+r1.position.y = 15
 r1.width = 25
 r1.height = 10
 r1.color = 0b1111100000000000
 r0.add_child(r1)
 
 r2 = Rectangle2DNode()
-r2.position.x = 128/2
-r2.position.y = 0
+r2.position.x = 0
+r2.position.y = 15
 r2.width = 25
 r2.height = 10
 r2.color = 0b0000000000011111
