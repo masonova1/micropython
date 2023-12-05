@@ -18,7 +18,7 @@ print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
 engine_debug.debug_enable_all()
-#engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
+#engine_debug.debug_enable_setting(engine_debug.debug_setting_info)
 
 
 
@@ -68,11 +68,20 @@ r2.height = 10
 n1 = Physics2DNode()
 n2 = Physics2DNode()
 
-n1.physics_shape = engine_physics.PhysicsShapeRectangle()
+n1.physics_shape = engine_physics.PhysicsShapeCircle()
 n2.physics_shape = engine_physics.PhysicsShapeCircle()
 
-print(dir(n1))
-n1.test(n2)
+#print(dir(n1))
+m = n2.test(n1)
+#m = engine_physics.PhysicsManifold()
+
+#print(dir(m))
+print(m.mtv_x)
+print(m.mtv_y)
+print(m.nrm_x)
+print(m.nrm_y)
+print(m.con_x)
+print(m.con_y)
 
 #engine.start()
 
