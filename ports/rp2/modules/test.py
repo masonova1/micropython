@@ -46,13 +46,23 @@ class MyNodeCam(CameraNode):
         #     self.position.x += 1
 
 
+circle0 = Circle2DNode()
+circle0.position.x = 0
+circle0.position.y = -30
+circle0.radius = 5
+circle0.color = 0b0000011111100000
+
+
+
 class MyRect(Rectangle2DNode):
     def __init__(self):
         super().__init__(self)
     
     def tick(self):
-        self.rotation -= 0.15
+        global circle0
 
+        self.rotation -= 0.35
+        circle0.rotation -= 0.35
 
 c = MyNodeCam()
 
@@ -83,18 +93,13 @@ r2.color = 0b0000000000011111
 r1.add_child(r2)
 
 
-circle0 = Circle2DNode()
-circle0.position.x = 0
-circle0.position.y = -30
-circle0.radius = 8
-circle0.color = 0b0000011111100000
 r0.add_child(circle0)
 
 circle1 = Circle2DNode()
 circle1.position.x = 0
 circle1.position.y = -30
 circle1.radius = 8
-circle1.color = 0b1110001011011001
+circle1.color = 0b1111100000000000
 circle0.add_child(circle1)
 
 engine.start()
