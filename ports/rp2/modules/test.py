@@ -17,8 +17,8 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-# engine_debug.debug_enable_all()
-engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
+engine_debug.debug_enable_all()
+# engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 
 
@@ -28,42 +28,71 @@ class MyNodeCam(CameraNode):
         super().__init__(self)
 
     def tick(self):
+        # self.rotation.z += 0.1
+        pass
+        # if engine_input.is_bumper_left_pressed():
+        #     self.rotation.z += 0.35
+        # if engine_input.is_bumper_right_pressed():
+        #     self.rotation.z -= 0.35
+
+        # if engine_input.is_dpad_up_pressed():
+        #     self.position.y -= 1
+        # if engine_input.is_dpad_down_pressed():
+        #     self.position.y += 1
+
+        # if engine_input.is_dpad_left_pressed():
+        #     self.position.x -= 1
+        # if engine_input.is_dpad_right_pressed():
+        #     self.position.x += 1
+
+
+class MyRect(Rectangle2DNode):
+    def __init__(self):
+        super().__init__(self)
+    
+    def tick(self):
         if engine_input.is_bumper_left_pressed():
-            self.rotation.z += 0.1
+            self.rotation -= 0.35
         if engine_input.is_bumper_right_pressed():
-            self.rotation.z -= 0.1
+            self.rotation += 0.35
 
         if engine_input.is_dpad_up_pressed():
-            self.position.y -= 0.5
+            self.position.y -= 1
         if engine_input.is_dpad_down_pressed():
-            self.position.y += 0.5
+            self.position.y += 1
 
         if engine_input.is_dpad_left_pressed():
-            self.position.x -= 0.5
+            self.position.x -= 1
         if engine_input.is_dpad_right_pressed():
-            self.position.x += 0.5
+            self.position.x += 1
+
 
 c = MyNodeCam()
 
 
-r0 = Rectangle2DNode()
+r0 = MyRect()
 r0.position.x = 128/2
 r0.position.y = 128/2
 r0.width = 25
 r0.height = 10
-r0.rotation = 45
+r0.rotation = 0
+r0.color = 0b1111100000011111
 
 r1 = Rectangle2DNode()
 r1.position.x = 128/2
-r1.position.y = 0
+r1.position.y = 128/4
 r1.width = 25
 r1.height = 10
+r1.color = 0b1111100000000000
+r0.add_child(r1)
 
 r2 = Rectangle2DNode()
 r2.position.x = 128/2
-r2.position.y = 127
+r2.position.y = 0
 r2.width = 25
 r2.height = 10
+r2.color = 0b0000000000011111
+r1.add_child(r2)
 
 engine.start()
 
