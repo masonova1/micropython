@@ -6,10 +6,12 @@ import engine_physics
 from engine_physics import PhysicsShapeRectangle
 from engine_nodes import EmptyNode, Sprite2DNode, Rectangle2DNode, Circle2DNode, CameraNode, Physics2DNode
 from engine_math import Vector3, Vector2, Rectangle
-from engine_resources import TextureResource
+from engine_resources import TextureResource, FontResource
 import gc
 import math
 import os
+import time
+# import machine
 print("dir(engine):",dir(engine))
 print("dir(EmptyNode):", dir(EmptyNode))
 print("dir(Sprite2DNode):", dir(Sprite2DNode))
@@ -17,11 +19,22 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
+
+# machine.freq(225 * 1000 * 1000)
+
+
+print(os.listdir())
+
+tex = TextureResource("32x32.bin")
+
 # engine_debug.debug_enable_all()
-# engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
+engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
+# nodes = []
+# for i in range(25):
+#     nodes.append(Sprite2DNode(tex))
 
-
+spr = Sprite2DNode(tex)
 
 class MyNodeCam(CameraNode):
     def __init__(self):
