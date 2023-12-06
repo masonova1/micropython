@@ -17,7 +17,7 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-engine_debug.debug_enable_all()
+engine_debug.debug_disable_all()
 #engine_debug.debug_enable_setting(engine_debug.debug_setting_info)
 
 
@@ -85,7 +85,7 @@ n2.physics_shape.compute_normals()
 
 print(n2.physics_shape.n_list)
 
-m = n1.test(n2)
+m = n2.test(n2)
 #m = engine_physics.PhysicsManifold()
 
 #print(dir(m))
@@ -96,7 +96,7 @@ print(m.nrm_y)
 print(m.con_x)
 print(m.con_y)
 
-#engine.start()
+engine.start()
 
 
 
