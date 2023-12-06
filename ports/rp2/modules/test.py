@@ -74,6 +74,7 @@ n2.physics_shape = engine_physics.PhysicsShapeConvex()
 #print(dir(n1))
 print(n1.position)
 print(n1.physics_shape.width)
+print(n1.physics_shape.height)
 
 n2.physics_shape.v_list = [Vector2(3, 4), Vector2(5, 2), Vector2(2, 1)]
 
