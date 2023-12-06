@@ -72,6 +72,11 @@ n1.physics_shape = engine_physics.PhysicsShapeCircle()
 n2.physics_shape = engine_physics.PhysicsShapeCircle()
 
 #print(dir(n1))
+print(n1.position)
+print(n1.physics_shape.radius)
+
+print(n2.position)
+print(n2.physics_shape.radius)
 m = n2.test(n1)
 #m = engine_physics.PhysicsManifold()
 
