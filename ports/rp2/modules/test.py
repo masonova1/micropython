@@ -69,14 +69,14 @@ n1 = Physics2DNode()
 n2 = Physics2DNode()
 
 n1.physics_shape = engine_physics.PhysicsShapeRectangle()
-n2.physics_shape = engine_physics.PhysicsShapeConvex()
+n2.physics_shape = engine_physics.PhysicsShapeConvex([Vector2(3, 4), Vector2(5, 2), Vector2(2, 1)])
 
 #print(dir(n1))
 print(n1.position)
 print(n1.physics_shape.width)
 print(n1.physics_shape.height)
 
-n2.physics_shape.v_list = [Vector2(3, 4), Vector2(5, 2), Vector2(2, 1)]
+#n2.physics_shape.v_list = [Vector2(3, 4), Vector2(5, 2), Vector2(2, 1)]
 
 print(n2.position)
 print(n2.physics_shape.v_list)
