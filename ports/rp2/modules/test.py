@@ -68,24 +68,28 @@ r2.height = 10
 n1 = Physics2DNode()
 n2 = Physics2DNode()
 
-n1.physics_shape = engine_physics.PhysicsShapeRectangle()
+n1.physics_shape = engine_physics.PhysicsShapeCircle()
 n2.physics_shape = engine_physics.PhysicsShapeConvex([Vector2(3, 4), Vector2(5, 2), Vector2(2, 1)])
 
 #print(dir(n1))
 print(n1.position)
-print(n1.physics_shape.width)
-print(n1.physics_shape.height)
+#print(n1.physics_shape.width)
+print(n1.physics_shape.radius)
 
 #n2.physics_shape.v_list = [Vector2(3, 4), Vector2(5, 2), Vector2(2, 1)]
 
 print(n2.position)
 print(n2.physics_shape.v_list)
 
-n2.physics_shape.compute_normals()
+#n2.physics_shape.compute_all()
 
 print(n2.physics_shape.n_list)
 
-m = n2.test(n2)
+print(n2.physics_shape.I)
+print(n2.physics_shape.area)
+print(n2.physics_shape.center)
+
+m = n1.test(n2)
 #m = engine_physics.PhysicsManifold()
 
 #print(dir(m))
