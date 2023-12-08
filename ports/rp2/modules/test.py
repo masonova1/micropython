@@ -72,7 +72,8 @@ n1.physics_shape = engine_physics.PhysicsShapeCircle()
 n2.physics_shape = engine_physics.PhysicsShapeConvex([Vector2(3, 4), Vector2(5, 2), Vector2(2, 1)])
 
 #print(dir(n1))
-print(n1.position)
+n1.position = Vector2(2.5, 5)
+n1.physics_shape.radius = 3
 #print(n1.physics_shape.width)
 print(n1.physics_shape.radius)
 
@@ -89,7 +90,7 @@ print(n2.physics_shape.I)
 print(n2.physics_shape.area)
 print(n2.physics_shape.center)
 
-m = n1.test(n2)
+m = n2.test(n1)
 #m = engine_physics.PhysicsManifold()
 
 #print(dir(m))
