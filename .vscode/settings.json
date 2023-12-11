@@ -59,7 +59,12 @@
         "vfs_lfs.h": "c",
         "vfs_posix.h": "c",
         "flash.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "lfs2.h": "c",
+        "istream": "c",
+        "list": "c",
+        "xhash": "c",
+        "streambuf": "c"
     },
     "dotnet.defaultSolution": "disable"
 }

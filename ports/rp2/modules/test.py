@@ -1,6 +1,8 @@
+import engine_debug
+engine_debug.debug_enable_all()
+
 import engine
 import engine_draw
-import engine_debug
 import engine_input
 import engine_physics
 from engine_physics import PhysicsShapeRectangle
@@ -28,7 +30,7 @@ print(os.listdir())
 tex = TextureResource("32x32.bin")
 
 # engine_debug.debug_enable_all()
-engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
+# engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 # nodes = []
 # for i in range(25):
