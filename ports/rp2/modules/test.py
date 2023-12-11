@@ -46,24 +46,24 @@ class MyNodeCam(CameraNode):
 c = MyNodeCam()
 
 
-r0 = Rectangle2DNode()
-r0.position.x = 128/2
-r0.position.y = 128/2
-r0.width = 25
-r0.height = 10
-r0.rotation = 45
-
-r1 = Rectangle2DNode()
-r1.position.x = 128/2
-r1.position.y = 0
-r1.width = 25
-r1.height = 10
-
-r2 = Rectangle2DNode()
-r2.position.x = 128/2
-r2.position.y = 127
-r2.width = 25
-r2.height = 10
+# r0 = Rectangle2DNode()
+# r0.position.x = 128/2
+# r0.position.y = 128/2
+# r0.width = 25
+# r0.height = 10
+# r0.rotation = 45
+# 
+# r1 = Rectangle2DNode()
+# r1.position.x = 128/2
+# r1.position.y = 0
+# r1.width = 25
+# r1.height = 10
+# 
+# r2 = Rectangle2DNode()
+# r2.position.x = 128/2
+# r2.position.y = 127
+# r2.width = 25
+# r2.height = 10
 
 n1 = Physics2DNode()
 n2 = Physics2DNode()
@@ -74,6 +74,27 @@ n2.physics_shape = engine_physics.PhysicsShapeConvex([Vector2(3, 4), Vector2(5, 
 #print(dir(n1))
 n1.position = Vector2(2.5, 5)
 n1.physics_shape.radius = 3
+
+class MyRect2D(Rectangle2DNode):
+     def __init__(self):
+         super().__init__(self)
+
+         # self.width = 5
+         # self.position.x = 10
+    
+     def tick(self):
+         global n1
+         #print("Position is "+str(n1.position.x) + ", "+str(n1.position.y))
+         pass
+         # print("hi from sprite!")
+
+# # a = MySprite()
+b = MyRect2D()
+c = MyRect2D()
+c2 = MyRect2D()
+
+n1.add_child(b)
+n2.add_child(c)
 #print(n1.physics_shape.width)
 print(n1.physics_shape.radius)
 
@@ -100,6 +121,8 @@ print(m.nrm_x)
 print(m.nrm_y)
 print(m.con_x)
 print(m.con_y)
+
+engine.start()
 
 #engine.start()
 
@@ -206,20 +229,6 @@ print(m.con_y)
 # #         pass
 # #         # print("hi from sprite!")
 
-
-# class MyRect2D(Rectangle2DNode):
-#     def __init__(self):
-#         super().__init__(self)
-
-#         # self.width = 5
-#         # self.position.x = 10
-    
-#     def tick(self):
-#         pass
-#         # print("hi from sprite!")
-
-# # a = MySprite()
-# b = MyRect2D()
 # c = MyNodeCam()
 # b.set_width(5)
 # # print(b.width)
@@ -232,8 +241,6 @@ print(m.con_y)
 
 # # print(dir(v))
 # # print(v, end='')
-
-# engine.start()
 
 
 # class MyNodeA(EmptyNode):
