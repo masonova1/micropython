@@ -1,6 +1,7 @@
 import engine_debug
-engine_debug.debug_enable_all()
+# engine_debug.debug_enable_all()
 # engine_debug.debug_enable_setting(engine_debug.debug_setting_errors)
+engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
 import engine
 import engine_draw
@@ -27,6 +28,10 @@ texture = TextureResource("32x32.bin")
 sprite = Sprite2DNode(texture)
 camera = CameraNode()
 
+nodes = []
+for i in range(25):
+    nodes.append(Sprite2DNode(texture))
+
 engine.start()
 
 # engine.init()
@@ -43,9 +48,7 @@ engine.start()
 # # engine_debug.debug_enable_all()
 # # engine_debug.debug_enable_setting(engine_debug.debug_setting_performance)
 
-# # nodes = []
-# # for i in range(25):
-# #     nodes.append(Sprite2DNode(tex))
+
 
 # spr = Sprite2DNode(tex)
 
