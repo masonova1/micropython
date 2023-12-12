@@ -64,7 +64,8 @@
         "istream": "c",
         "list": "c",
         "xhash": "c",
-        "streambuf": "c"
+        "streambuf": "c",
+        "mutex": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
