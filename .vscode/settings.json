@@ -65,7 +65,9 @@
         "list": "c",
         "xhash": "c",
         "streambuf": "c",
-        "mutex": "c"
+        "mutex": "c",
+        "chrono": "c",
+        "cmath": "c"
     },
     "dotnet.defaultSolution": "disable"
 }
