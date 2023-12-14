@@ -55,9 +55,9 @@
 
 #ifndef MICROPY_GC_HEAP_SIZE
 #if MICROPY_PY_LWIP
-#define MICROPY_GC_HEAP_SIZE 130 * 1024
+#define MICROPY_GC_HEAP_SIZE 120 * 1024
 #else
-#define MICROPY_GC_HEAP_SIZE 130 * 1024
+#define MICROPY_GC_HEAP_SIZE 120 * 1024
 #endif
 #endif
 
@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
     mdns_resp_init();
     #endif
     #endif
-
+    
     for (;;) {
 
         // Initialise MicroPython runtime.
@@ -186,6 +186,9 @@ int main(int argc, char **argv) {
         #endif
         gc_sweep_all();
         mp_deinit();
+        #if MICROPY_C_HEAP
+        c_data_reset()
+        #endif
     }
 
     return 0;

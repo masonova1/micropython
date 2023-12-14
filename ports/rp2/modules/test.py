@@ -62,6 +62,7 @@ class MyRect2D(Rectangle2DNode):
          pass
 
 b = MyRect2D()
+
 c = MyRect2D()
 c2 = MyRect2D()
 
@@ -95,5 +96,7 @@ engine.init()
 #engine.tick()
 #engine.tick()
 tickFunction()
-tickFunction()
-tickFunction()
+#tickFunction()
+#tickFunction()
+
+print("Done!")
