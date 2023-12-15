@@ -34,6 +34,10 @@ engine.init()
 for i in range(100):
     engine.tick()
 
+
+engine.stop()
+
+
 # print("dir(engine):", dir(engine))
 # print("dir(EmptyNode):", dir(EmptyNode))
 # print("dir(Sprite2DNode):", dir(Sprite2DNode))
