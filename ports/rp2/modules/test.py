@@ -22,10 +22,17 @@ texture = TextureResource("128x128.bin", 128, 128)
 sprite = Sprite2DNode(texture)
 camera = CameraNode()
 
+# nodes = []
+# for i in range(25):
+#     nodes.append(Sprite2DNode(texture))
+
 # engine.start()
 engine.init()
-engine.tick()
-engine.tick()
+# engine.tick()
+# engine.tick()
+
+for i in range(100):
+    engine.tick()
 
 # print("dir(engine):", dir(engine))
 # print("dir(EmptyNode):", dir(EmptyNode))
