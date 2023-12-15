@@ -17,7 +17,7 @@ print("dir(Rectangle2DNode):", dir(Rectangle2DNode))
 print("dir(Vector3):", dir(Vector3))
 print("dir(Rectangle):", dir(Rectangle))
 
-engine_debug.debug_enable_all()
+#engine_debug.debug_enable_all()
 
 
 
@@ -39,17 +39,20 @@ n1.physics_shape = engine_physics.PhysicsShapeCircle()
 #n2.physics_shape = engine_physics.PhysicsShapeConvex([Vector2(3, 4), Vector2(5, 2), Vector2(2, 1)])
 n2.physics_shape = engine_physics.PhysicsShapeRectangle()
 
-n1.position = Vector2(7.4, 7.57)
+n1.position = Vector2(9.28,-1.26)
 n1.physics_shape.radius = 3
 
 n2.position = Vector2(4, 0)
 
+n1.compute_mass(1.0)
+n2.compute_mass(1.0)
+
 print("n1 data:")
-print(n1.position)
+print(str(n1.position.x) + ", " + str(n1.position.y))
 print(n1.physics_shape.radius)
 
 print("n2 data:")
-print(n2.position)
+print(str(n2.position.x) + ", " + str(n2.position.y))
 print(n2.physics_shape.width)
 print(n2.physics_shape.height)
 
@@ -89,14 +92,16 @@ print(m.con_y)
 
 engine.init()
 
-#engine.start()
-#for i in range(3):
-#    tickFunction()
-#engine.tick()
-#engine.tick()
-#engine.tick()
-tickFunction()
-#tickFunction()
-#tickFunction()
+for i in range(20):
+
+    print("n1 data:")
+    print(str(n1.position.x) + ", " + str(n1.position.y))
+    print(n1.physics_shape.radius)
+
+    print("n2 data:")
+    print(str(n2.position.x) + ", " + str(n2.position.y))
+    print(n2.physics_shape.width)
+    print(n2.physics_shape.height)
+    tickFunction()
 
 print("Done!")
